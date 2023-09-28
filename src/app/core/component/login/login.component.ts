@@ -15,4 +15,10 @@ export class LoginComponent {
     });
   }
 
+  login(){
+    if(this.loginForm && this.loginForm.valid){
+      console.log('loginForm : ',this.loginForm?.value);
+    }
+  }
+
 }
