@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -8,6 +9,9 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 })
 export class LoginComponent {
   loginForm!: FormGroup;
+  constructor(private router : Router){
+
+  }
   ngOnInit() {
     this.loginForm = new FormGroup({
       userName: new FormControl(null, Validators.required),
@@ -19,6 +23,10 @@ export class LoginComponent {
     if(this.loginForm && this.loginForm.valid){
       console.log('loginForm : ',this.loginForm?.value);
     }
+  }
+  forgotPassword(){
+    console.log('forgotpassword');
+this.router.navigate(['/forgotPassword'])
   }
 
 }
