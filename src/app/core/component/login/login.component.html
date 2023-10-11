@@ -1,46 +1,107 @@
 <div class="outer-container" fxLayout="column" fxLayoutAlign="start start">
-  <marquee Scrollamount=10 style="background-color: #4758b8;">
-    <h3 style="color: white;margin: 10px;"><span style="margin: 30px;">Your Health, Our Priority Join Us in the
-        Pursuit of Wellness</span> |<span style="margin: 30px;"> 24/7 Access
-        for Healthcare Professionals Ensuring Timely and Informed Care.</span>
-      |<span style="margin: 30px;">
-        Enhance Patient Experience
-        With our State-of-the-Art System.</span>
-      |<span style="margin: 30px;"> Welcome to Our Hospital Management System
-        Providing Quality Care and Efficiency.</span>
-      |<span style="margin: 30px;">Manage Patients, Appointments, and Staff
-        Streamline Your Hospital Operations
-        .</span></h3>
+  <marquee Scrollamount="10" style="background-color: #4758b8">
+    <h3 style="color: white; margin: 10px">
+      <span style="margin: 30px"
+        >Your Health, Our Priority Join Us in the Pursuit of Wellness</span
+      >
+      |<span style="margin: 30px">
+        24/7 Access for Healthcare Professionals Ensuring Timely and Informed
+        Care.</span
+      >
+      |<span style="margin: 30px">
+        Enhance Patient Experience With our State-of-the-Art System.</span
+      >
+      |<span style="margin: 30px">
+        Welcome to Our Hospital Management System Providing Quality Care and
+        Efficiency.</span
+      >
+      |<span style="margin: 30px"
+        >Manage Patients, Appointments, and Staff Streamline Your Hospital
+        Operations .</span
+      >
+    </h3>
   </marquee>
-  <div fxLayout="row" fxLayoutAlign="center center" style="height: 100%;" fxFlexAlign="stretch">
-    <div fxFlex="40%" fxLayoutAlign="start start" fxLayout="column">
-      <div style="width: 70%;margin-left: 30%;">
-        <div style="width: 90%;" fxLayoutAlign="center center"><img style="width: 200px;margin-bottom: 50px;"
-            src="./assets/logo.png"></div>
-        <form [formGroup]="loginForm" style="width: 90%;margin-top: 8px;" fxLayout="column" fxLayoutAlign="start start">
-          <h1 style="font-weight: bolder;color: gray;">Welcome to VidhyaMithra</h1>
-          <p style="color: #6f6e6e;font-weight: bold;">Signin by entering information below</p>
-          <div *ngIf="validEmail" fxLayoutAlign="center center" class="error-outline">
+  <div
+    fxLayout="row"
+    fxLayoutAlign="center center"
+    style="height: 100%"
+    fxFlexAlign="stretch"
+  >
+    <div
+      fxFlex="40%"
+      fxFlex.lt-md="60%"
+      fxFlex.lt-sm="100%"
+      fxLayoutAlign="start start"
+      fxLayout="column"
+      fxLayoutAlign.lt-sm="center center"
+    >
+      <div
+        fxLayoutAlign="center center"
+        fxLayout="column"
+        [ngStyle]="{ width: '70%', 'margin-left': '30%' }"
+        [ngStyle.lt-md]="{ width: '97%', 'margin-left': '3%' }"
+      >
+        <div style="width: 90%" fxLayoutAlign="center center">
+          <img
+            style="width: 200px; margin-bottom: 50px"
+            [ngStyle]="{ width: '70%', 'margin-bottom': '20px' }"
+            src="./assets/logo.png"
+          />
+        </div>
+        <form
+          [formGroup]="loginForm"
+          style="width: 90%; margin-top: 8px"
+          fxLayout="column"
+          fxLayoutAlign="start start"
+        >
+          <h1 style="font-weight: bolder; color: gray">
+            Welcome to VidhyaMithra
+          </h1>
+          <p style="color: #6f6e6e; font-weight: bold">
+            Signin by entering information below
+          </p>
+          <div
+            *ngIf="validEmail"
+            fxLayoutAlign="center center"
+            class="error-outline"
+          >
             <div fxLayout="row" class="error-message">
-              <mat-icon style="color: red !important;">error_outline</mat-icon>
-              <p style="margin-top: 4px;">&nbsp;Invalid Email,Please enter correct user.</p>
+              <mat-icon style="color: red !important">error_outline</mat-icon>
+              <p style="margin-top: 4px">
+                &nbsp;Invalid Email,Please enter correct user.
+              </p>
             </div>
           </div>
-          <div *ngIf="invalidUser" fxLayoutAlign="center center" class="error-outline">
+          <div
+            *ngIf="invalidUser"
+            fxLayoutAlign="center center"
+            class="error-outline"
+          >
             <div fxLayout="row" class="error-message">
-              <mat-icon style="color: red !important;">error_outline</mat-icon>
-              <p style="margin-top: 4px;">&nbsp;Invalid username, Please try again.</p>
+              <mat-icon style="color: red !important">error_outline</mat-icon>
+              <p style="margin-top: 4px">
+                &nbsp;Invalid username, Please try again.
+              </p>
             </div>
           </div>
-          <div *ngIf="invalidLogin" fxLayoutAlign="center center" class="error-outline">
+          <div
+            *ngIf="invalidLogin"
+            fxLayoutAlign="center center"
+            class="error-outline"
+          >
             <div fxLayout="row" class="error-message">
-              <mat-icon style="color: red !important;">error_outline</mat-icon>
-              <p style="margin-top: 4px;">&nbsp;Invalid login credentials, Please try again.</p>
+              <mat-icon style="color: red !important">error_outline</mat-icon>
+              <p style="margin-top: 4px">
+                &nbsp;Invalid login credentials, Please try again.
+              </p>
             </div>
           </div>
-          <mat-form-field appearance="outline" style="width: 100%;margin-bottom: 10px;">
+          <mat-form-field
+            appearance="outline"
+            style="width: 100%; margin-bottom: 10px"
+          >
             <mat-label>UserName</mat-label>
-            <input matInput formControlName="email">
+            <input matInput formControlName="email" />
             <mat-error *ngIf="loginForm?.get('email')?.hasError('required')">
               This field is required
             </mat-error>
@@ -48,29 +109,56 @@
               Email is not valid
             </mat-error>
           </mat-form-field>
-          <mat-form-field appearance="outline" style="width: 100%;">
+          <mat-form-field appearance="outline" style="width: 100%">
             <mat-label>Password</mat-label>
-            <input type="password" matInput formControlName="password">
+            <input type="password" matInput formControlName="password" />
             <mat-error *ngIf="loginForm?.get('password')?.hasError('required')">
               This field is required
             </mat-error>
           </mat-form-field>
         </form>
-        <div style="width: 90%;" fxLayoutAlign="start start">
-          <p style="color: rgb(90, 90, 225);font-size: 14px;margin-bottom: 5px;cursor:pointer"
-            (click)="navigate('/forgotPassword')">
+        <div style="width: 90%" fxLayoutAlign="start start">
+          <p
+            style="
+              color: rgb(90, 90, 225);
+              font-size: 14px;
+              margin-bottom: 5px;
+              cursor: pointer;
+            "
+            (click)="navigate('/forgotPassword')"
+          >
             Forgot Password?
           </p>
         </div>
-        <button mat-raised-button style="width: 90%;" color="primary" (click)="login()">Sign In</button>
-        <p style="color: #060d1f;margin-top: 8px;font-size: 16px;">Not a member?&nbsp;<span
-            style="color:#3f51b5;font-size: 13px;cursor: pointer;" (click)="navigate('/signup')">SiguUp
-            now</span> </p>
+        <button
+          mat-raised-button
+          style="width: 90%"
+          color="primary"
+          (click)="login()"
+        >
+          Sign In
+        </button>
+        <p style="color: #060d1f; margin-top: 8px; font-size: 16px">
+          Not a member?&nbsp;<span
+            style="color: #3f51b5; font-size: 13px; cursor: pointer"
+            (click)="navigate('/signup')"
+            >SiguUp now</span
+          >
+        </p>
       </div>
     </div>
 
-    <div fxFlex="60%" fxLayoutAlign="center center">
-      <img width="75%" src="./assets/Login.jpg">
+    <div
+      fxFlex="60%"
+      fxFlex.lt-md="40%"
+      fxHide.lt-sm
+      fxLayoutAlign="center center"
+    >
+      <img
+        [ngStyle]="{ width: '75%' }"
+        [ngStyle.lt-md]="{ width: '95%' }"
+        src="./assets/Login.jpg"
+      />
     </div>
   </div>
 </div>

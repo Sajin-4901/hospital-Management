@@ -9,7 +9,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class ForgotPasswordComponent {
 
-  signup!: boolean;
+  signup: boolean = false;
+  forgotPassword : boolean = false;
   signUpAndForgotPassword = new UntypedFormGroup({});
   constructor(private router: Router,
     private route: ActivatedRoute) {
@@ -20,6 +21,8 @@ export class ForgotPasswordComponent {
       if (res && res[0] && res[0].path && res[0].path == 'signup') {
         this.signup = true;
         this.signUp();
+      }else if(res && res[0] && res[0].path && res[0].path == 'forgotPassword'){
+        this.forgotPassword = true;
       }
     })
   }
