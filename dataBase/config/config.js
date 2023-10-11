@@ -9,4 +9,6 @@ CONFIG.db_user = process.env.DB_USER;
 CONFIG.db_password = process.env.DB_PASSWORD;
 CONFIG.db_dialect = process.env.DB_DIALECT;
 // CONFIG.jwt_encryption = process.env.jwt_encryption
+CONFIG.jwt_encryption = process.env.jwt_encryption;
+CONFIG.jwt_expiration = process.env.jwt_expiration;
 CONFIG.environment = process.env.APP;

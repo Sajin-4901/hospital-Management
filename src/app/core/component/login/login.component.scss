@@ -1,24 +1,4 @@
-.container {
-  // background-image: url('../assets/hospitalLogin.jpg');
-  height: 100vh;
+.outer-container {
   width: 100%;
-  background-position: center;
-  background-size: cover;
-
-}
-
-.inner-container {
-  border-top-left-radius: 130px !important;
-  border-radius: 5px;
-  background-color: white;
-  // background-color: #ffffff59;
-  padding: 30px;
-  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-}
-
-.image {
-  background-position: center;
-  background-size: cover;
-  border-radius: 50%;
-  margin: 0px 30px 30px;
+  height: 100vh;
 }

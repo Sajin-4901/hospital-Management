@@ -8,6 +8,8 @@ import { RouterModule } from '@angular/router';
 import { MaterialModule } from './material/material.module';
 import { MatButtonModule } from '@angular/material/button';
 import { CoreModule } from './core/core.module';
+import { HttpClientModule } from '@angular/common/http';
+import { EndUserModule } from './end-user/end-user.module';
 
 @NgModule({
   declarations: [
@@ -17,10 +19,11 @@ import { CoreModule } from './core/core.module';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    RouterModule,
     MaterialModule,
     CoreModule,
-    MatButtonModule
+    MatButtonModule,
+    HttpClientModule,
+    EndUserModule
   ],
   providers: [],
   bootstrap: [AppComponent]

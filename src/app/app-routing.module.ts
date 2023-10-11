@@ -7,6 +7,7 @@ const routes: Routes = [
   { path: "", redirectTo: '/app', pathMatch: 'full' },
   { path: 'app', component: LoginComponent },
   { path: 'forgotPassword', component: ForgotPasswordComponent },
+  { path: 'signup', component: ForgotPasswordComponent },
   
 ];
 @NgModule({

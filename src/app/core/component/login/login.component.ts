@@ -1,6 +1,11 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { CustomValidatorServiceService } from '../../service/custom-validator-service.service';
+import { AuthServiceService } from '../../service/auth-service.service';
+import { DialogService } from '../../service/dialog.service';
+import { commonConstant } from '../../constant/commonConstant';
+// import { commonConstant } from '../../constant/commonConstant';
 
 @Component({
   selector: 'app-login',
@@ -8,25 +13,58 @@ import { Router } from '@angular/router';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent {
+  deviceInfo: any;
   loginForm!: FormGroup;
-  constructor(private router : Router){
-
+  ipaddress: any;
+  commonConstant: commonConstant;
+  constructor(private router: Router,
+    private customValidatorService: CustomValidatorServiceService,
+    private authService: AuthServiceService,
+    private dialogService: DialogService,
+  ) {
+    this.commonConstant = new commonConstant();
   }
   ngOnInit() {
     this.loginForm = new FormGroup({
-      userName: new FormControl(null, Validators.required),
+      email: new FormControl(null, [Validators.required, Validators.pattern(this.commonConstant.pattern.emailValidationPatternForSignIn)]),
       password: new FormControl(null, Validators.required)
     });
+    this.deviceInfo = this.customValidatorService.getDeviceInfo();
+    this.customValidatorService.getIp().subscribe((res: any) => {
+      if (res && res.ip) this.ipaddress = res.ip;
+    })
   }
 
-  login(){
-    if(this.loginForm && this.loginForm.valid){
-      console.log('loginForm : ',this.loginForm?.value);
+  login() {
+    if (this.loginForm && this.loginForm.valid) {
+      let data = {
+        email: this.loginForm.get('email') && this.loginForm.get('email')?.value ? this.loginForm.get('email')?.value : null,
+        password: this.loginForm.get('password') && this.loginForm.get('password')?.value ? this.loginForm.get('password')?.value : null,
+        ipAddress: this.ipaddress,
+        browserInfo: this.deviceInfo && this.deviceInfo.browser,
+        deviceName: this.deviceInfo && this.deviceInfo.deviceType,
+      }
+      this.customValidatorService.signin(data).subscribe((res: any) => {
+        if (res && res.user && res.token && res.refreshToken) {
+          this.authService.setToken(res);
+        }
+      }
+        // , (err) => {
+        //   if (err) {
+        //     this.dialogService.openDialog({
+        //       header: 'success',
+        //       message: 'cant able to signin',
+        //       button: 'ok',
+        //       disableClose: true,
+        //       actionType: 'success'
+        //     })
+        //   }
+        // }
+      )
     }
   }
-  forgotPassword(){
-    console.log('forgotpassword');
-this.router.navigate(['/forgotPassword'])
+  navigate(value: any) {
+    this.router.navigate([value]);
   }
 
 }
