@@ -14,11 +14,13 @@ const signin = async function (body) {
       }
     }))
     if (err) return TE(err.message);
-    if (!user) return TE("Invalid username, Please try again.");
+    if (!user) return TE("INVALID USER");
+    // if (!user) return TE("Invalid username, Please try again.");
     if (user) {
       [err, passwordCheck] = await to(bcrypt.compare(body.password, user.password))
       if (err) return TE(err.message);
-      if (!passwordCheck) return TE(' Invalid login credentials, Please try again.');
+      if (!passwordCheck) return TE('INVALID LOGIN');
+      // if (!passwordCheck) return TE(' Invalid login credentials, Please try again.');
       if (passwordCheck) {
         let loginUser = {};
         loginUser['user'] = user;
@@ -38,7 +40,8 @@ const signin = async function (body) {
     }
     if (err) return TE(err.message);
   } else {
-    return TE('Invalid Email');
+    return TE('INVALID EMAIL');
+    // return TE('Invalid Email');
   }
 };
 module.exports.signin = signin;

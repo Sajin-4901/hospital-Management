@@ -17,6 +17,9 @@ export class LoginComponent {
   loginForm!: FormGroup;
   ipaddress: any;
   commonConstant: commonConstant;
+  validEmail: boolean = false;
+  invalidUser: boolean = false;
+  invalidLogin: boolean = false;
   constructor(private router: Router,
     private customValidatorService: CustomValidatorServiceService,
     private authService: AuthServiceService,
@@ -36,6 +39,9 @@ export class LoginComponent {
   }
 
   login() {
+    this.invalidUser = false;
+    this.invalidLogin = false;
+    this.validEmail = false;
     if (this.loginForm && this.loginForm.valid) {
       let data = {
         email: this.loginForm.get('email') && this.loginForm.get('email')?.value ? this.loginForm.get('email')?.value : null,
@@ -47,19 +53,28 @@ export class LoginComponent {
       this.customValidatorService.signin(data).subscribe((res: any) => {
         if (res && res.user && res.token && res.refreshToken) {
           this.authService.setToken(res);
+          this.router.navigate(['/app'])
         }
       }
-        // , (err) => {
-        //   if (err) {
-        //     this.dialogService.openDialog({
-        //       header: 'success',
-        //       message: 'cant able to signin',
-        //       button: 'ok',
-        //       disableClose: true,
-        //       actionType: 'success'
-        //     })
-        //   }
-        // }
+        , (err) => {
+          console.log(err.error.error);
+          if (err && err.error && err.error.error == "INVALID EMAIL") {
+            this.validEmail = true;
+          } else if (err && err.error && err.error.error == "INVALID USER") {
+            this.invalidUser = true;
+            console.log('invalid User : ', this.invalidUser)
+          }
+          else if (err && err.error && err.error.error == "INVALID LOGIN") {
+            this.invalidLogin = true;
+          }
+          // this.dialogService.openDialog({
+          //   header: 'success',
+          //   message: 'cant able to signin',
+          //   button: 'ok',
+          //   disableClose: true,
+          //   actionType: 'success'
+          // })
+        }
       )
     }
   }
