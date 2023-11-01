@@ -8,74 +8,82 @@
   </mat-card>
   <mat-card class="form-container">
     <form [formGroup]="employeeInfo" fxLayout="column" style="width: 100%">
-      <div fxFlex="100%">
-        <div fxFlex="50%" fxLayout="row" class="form-field">
-          <mat-label fxFlex="40%">User Code</mat-label>
-          <mat-form-field fxFlex="60%" appearance="outline">
-            <input matInput style="padding: 0px !important" />
+
+       <div fxFlex="100%" fxLayout="row" fxLayout.lt-sm="column" >
+        <div fxFlex="50%" fxFlex.lt-sm="100%" fxLayout="row" fxLayout.lt-md="column" class="form-field">
+          <mat-label  fxFlex="40%" fxFlex.lt-md="100%" >User Code</mat-label>
+          <mat-form-field fxFlex.lt-md="100%" class="example-full-width" fxFlex="60%" appearance="outline">
+            <input formControlName="userCode" matInput/>
           </mat-form-field>
         </div>
-        <div fxFlex="50%" class="form-field" fxLayout="row">
-          <mat-label fxFlex="30%">First Name</mat-label>
-          <mat-form-field fxFlex="60%" appearance="outline">
-            <input matInput />
+        <div fxFlex="50%" fxFlex.lt-sm="100%"  class="form-field" fxLayout="row" fxLayout.lt-md="column">
+          <mat-label fxFlex="40%" fxFlex.lt-md="100%">First Name</mat-label>
+          <mat-form-field class="example-full-width" fxFlex="60%" fxFlex.lt-md="100%" appearance="outline">
+            <input formControlName="firstName" matInput />
           </mat-form-field>
         </div>
       </div>
-      <div>
-        <mat-form-field
-          appearance="fill"
-          style="width: 100%; margin-bottom: 10px"
-        >
-          <mat-label>Middle Name</mat-label>
-          <input matInput />
-        </mat-form-field>
+
+         <div fxFlex="100%" fxLayout="row" fxLayout.lt-sm="column" >
+        <div fxFlex="50%" fxFlex.lt-sm="100%" fxLayout="row" fxLayout.lt-md="column" class="form-field">
+          <mat-label  fxFlex="40%" fxFlex.lt-md="100%" >Middle Name</mat-label>
+          <mat-form-field fxFlex.lt-md="100%" class="example-full-width" fxFlex="60%" appearance="outline">
+            <input formControlName="middleName" matInput/>
+          </mat-form-field>
+        </div>
+        <div fxFlex="50%" fxFlex.lt-sm="100%"  class="form-field" fxLayout="row" fxLayout.lt-md="column">
+          <mat-label fxFlex="40%" fxFlex.lt-md="100%">Last Name</mat-label>
+          <mat-form-field class="example-full-width" fxFlex="60%" fxFlex.lt-md="100%" appearance="outline">
+            <input formControlName="lastName" matInput />
+          </mat-form-field>
+        </div>
       </div>
-      <div>
-        <mat-form-field
-          appearance="outline"
-          style="width: 100%; margin-bottom: 10px"
-        >
-          <mat-label>Last Name</mat-label>
-          <input matInput />
-        </mat-form-field>
+
+        <div fxFlex="100%" fxLayout="row" fxLayout.lt-sm="column" >
+        <div fxFlex="50%" fxFlex.lt-sm="100%" fxLayout="row" fxLayout.lt-md="column" class="form-field">
+          <mat-label  fxFlex="40%" fxFlex.lt-md="100%" >Email</mat-label>
+          <mat-form-field fxFlex.lt-md="100%" class="example-full-width" fxFlex="60%" appearance="outline">
+            <input formControlName="email" matInput/>
+          </mat-form-field>
+        </div>
+        <div fxFlex="50%" fxFlex.lt-sm="100%"  class="form-field" fxLayout="row" fxLayout.lt-md="column">
+          <mat-label fxFlex="40%" fxFlex.lt-md="100%">Alternate Email</mat-label>
+          <mat-form-field class="example-full-width" fxFlex="60%" fxFlex.lt-md="100%" appearance="outline">
+            <input formControlName="alternateEmail" matInput />
+          </mat-form-field>
+        </div>
       </div>
-      <div>
-        <mat-form-field
-          appearance="outline"
-          style="width: 100%; margin-bottom: 10px"
-        >
-          <mat-label>Age</mat-label>
-          <input matInput />
-        </mat-form-field>
+
+         <div fxFlex="100%" fxLayout="row" fxLayout.lt-sm="column" >
+        <div fxFlex="50%" fxFlex.lt-sm="100%" fxLayout="row" fxLayout.lt-md="column" class="form-field">
+          <mat-label  fxFlex="40%" fxFlex.lt-md="100%" >Age</mat-label>
+          <mat-form-field fxFlex.lt-md="100%" class="example-full-width" fxFlex="60%" appearance="outline">
+            <input formControlName="age" matInput/>
+          </mat-form-field>
+        </div>
+        <div fxFlex="50%" fxFlex.lt-sm="100%"  class="form-field" fxLayout="row" fxLayout.lt-md="column">
+          <mat-label fxFlex="40%" fxFlex.lt-md="100%">Gender</mat-label>
+          <mat-form-field class="example-full-width" fxFlex="60%" fxFlex.lt-md="100%" appearance="outline">
+            <input formControlName="gender" matInput />
+          </mat-form-field>
+        </div>
       </div>
-      <div>
-        <mat-form-field
-          appearance="outline"
-          style="width: 100%; margin-bottom: 10px"
-        >
-          <mat-label>Gender</mat-label>
-          <input matInput />
-        </mat-form-field>
+
+        <div fxFlex="100%" fxLayout="row" fxLayout.lt-sm="column" >
+        <div fxFlex="50%" fxFlex.lt-sm="100%" fxLayout="row" fxLayout.lt-md="column" class="form-field">
+          <mat-label  fxFlex="40%" fxFlex.lt-md="100%" >Marital Status</mat-label>
+          <mat-form-field fxFlex.lt-md="100%" class="example-full-width" fxFlex="60%" appearance="outline">
+            <input formControlName="maritalStatus" matInput/>
+          </mat-form-field>
+        </div>
+        <div fxFlex="50%" fxFlex.lt-sm="100%"  class="form-field" fxLayout="row" fxLayout.lt-md="column">
+          <mat-label fxFlex="40%" fxFlex.lt-md="100%">Work</mat-label>
+          <mat-form-field class="example-full-width" fxFlex="60%" fxFlex.lt-md="100%" appearance="outline">
+            <input formControlName="work" matInput />
+          </mat-form-field>
+        </div>
       </div>
-      <div>
-        <mat-form-field
-          appearance="outline"
-          style="width: 100%; margin-bottom: 10px"
-        >
-          <mat-label>Marital Status</mat-label>
-          <input matInput />
-        </mat-form-field>
-      </div>
-      <div>
-        <mat-form-field
-          appearance="outline"
-          style="width: 100%; margin-bottom: 10px"
-        >
-          <mat-label>Work</mat-label>
-          <input matInput />
-        </mat-form-field>
-      </div>
+      
     </form>
   </mat-card>
 </div>
