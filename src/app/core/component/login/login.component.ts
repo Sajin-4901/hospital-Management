@@ -53,7 +53,7 @@ export class LoginComponent {
       this.customValidatorService.signin(data).subscribe((res: any) => {
         if (res && res.user && res.token && res.refreshToken) {
           this.authService.setToken(res);
-          this.router.navigate(['/app'])
+          this.router.navigate(['/app/empinfo'])
         }
       }
         , (err) => {

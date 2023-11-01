@@ -1,1 +1,81 @@
-<p>employee-info works!</p>
+<div class="outer-container" fxLayout="column" fxLayoutAlign="center center">
+  <mat-card
+    class="inner-container"
+    fxLayoutAlign="space-between center"
+    fxLayout="row wrap"
+  >
+    <div class="sub-menu">General Ingfo</div>
+  </mat-card>
+  <mat-card class="form-container">
+    <form [formGroup]="employeeInfo" fxLayout="column" style="width: 100%">
+      <div fxFlex="100%">
+        <div fxFlex="50%" fxLayout="row" class="form-field">
+          <mat-label fxFlex="40%">User Code</mat-label>
+          <mat-form-field fxFlex="60%" appearance="outline">
+            <input matInput style="padding: 0px !important" />
+          </mat-form-field>
+        </div>
+        <div fxFlex="50%" class="form-field" fxLayout="row">
+          <mat-label fxFlex="30%">First Name</mat-label>
+          <mat-form-field fxFlex="60%" appearance="outline">
+            <input matInput />
+          </mat-form-field>
+        </div>
+      </div>
+      <div>
+        <mat-form-field
+          appearance="fill"
+          style="width: 100%; margin-bottom: 10px"
+        >
+          <mat-label>Middle Name</mat-label>
+          <input matInput />
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field
+          appearance="outline"
+          style="width: 100%; margin-bottom: 10px"
+        >
+          <mat-label>Last Name</mat-label>
+          <input matInput />
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field
+          appearance="outline"
+          style="width: 100%; margin-bottom: 10px"
+        >
+          <mat-label>Age</mat-label>
+          <input matInput />
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field
+          appearance="outline"
+          style="width: 100%; margin-bottom: 10px"
+        >
+          <mat-label>Gender</mat-label>
+          <input matInput />
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field
+          appearance="outline"
+          style="width: 100%; margin-bottom: 10px"
+        >
+          <mat-label>Marital Status</mat-label>
+          <input matInput />
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field
+          appearance="outline"
+          style="width: 100%; margin-bottom: 10px"
+        >
+          <mat-label>Work</mat-label>
+          <input matInput />
+        </mat-form-field>
+      </div>
+    </form>
+  </mat-card>
+</div>

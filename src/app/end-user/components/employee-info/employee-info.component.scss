@@ -1,0 +1,36 @@
+.outer-container {
+  background-color: #ececec;
+  width: 100%;
+  padding: 30px;
+}
+
+.inner-container {
+  width: 98%;
+  margin: 10px 0px;
+  padding: 15px;
+  background-color: white;
+}
+
+
+
+.form-field{
+  margin-right: 5%;
+}
+
+.sub-menu {
+  display: inline-block;
+  padding: 4px 9px;
+  border-radius: 5px;
+  border: 1px solid gray;
+  color: blue;
+}
+
+.form-container {
+  background-color: white;
+  width: 98%;
+  padding: 15px;
+}
+
+::ng-deep .mat-mdc-text-field-wrapper {
+  height: 40px !important;
+}

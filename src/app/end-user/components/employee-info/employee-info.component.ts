@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-employee-info',
@@ -6,5 +7,8 @@ import { Component } from '@angular/core';
   styleUrls: ['./employee-info.component.scss']
 })
 export class EmployeeInfoComponent {
+  employeeInfo!: FormGroup;
+  ngOnInit() {
 
+  }
 }

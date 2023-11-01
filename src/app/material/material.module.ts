@@ -9,6 +9,12 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { MatIconModule } from '@angular/material/icon';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatSelectModule } from '@angular/material/select';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatListModule } from '@angular/material/list';
+import { MatCardModule } from '@angular/material/card';
 @NgModule({
   declarations: [],
   imports: [
@@ -24,7 +30,13 @@ import { MatIconModule } from '@angular/material/icon';
     RouterModule,
     HttpClientModule,
     ReactiveFormsModule,
-    MatIconModule
+    MatIconModule,
+    MatSelectModule,
+    MatSidenavModule,
+    MatRadioModule,
+    MatToolbarModule,
+    MatListModule,
+    MatCardModule
 
 
   ],
@@ -40,7 +52,13 @@ import { MatIconModule } from '@angular/material/icon';
     HttpClientModule,
     RouterModule,
     ReactiveFormsModule,
-    MatIconModule
+    MatIconModule,
+    MatSelectModule,
+    MatSidenavModule,
+    MatRadioModule,
+    MatToolbarModule,
+    MatListModule,
+    MatCardModule
   ]
 })
 export class MaterialModule { }
