@@ -5,6 +5,12 @@ mat-label {
   margin-bottom: 4px;
 }
 
+// mat-tab-group mat-tab-header {
+//   width: 50% !important;
+// }
+::ng-deep .mat-mdc-tab-header {
+  width: 50% !important;
+}
 
 .active {
   background-color: var(--primary-color) !important;
