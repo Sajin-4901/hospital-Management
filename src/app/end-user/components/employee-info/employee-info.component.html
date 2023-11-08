@@ -1,22 +1,24 @@
 <div class="outer-container" fxLayout="column" fxLayoutAlign="center center">
-  <mat-card
-    class="inner-container"
-    fxLayoutAlign="space-between center"
-    fxLayout="row wrap"
-  >
-    <div class="sub-menu">General Ingfo</div>
+  <mat-card class="inner-container" fxLayout="row wrap">
+    <div class="myinfo-category" *ngFor="let item of dashboardCategory;let id=index" (click)="templateSelection(id)">
+      <button mat-stroked-button [ngClass]="{'active':id==hoveredIndex}" color="primary"
+        class="sub-menu">{{item?.name}}</button>
+    </div>
   </mat-card>
   <mat-card class="form-container">
+    <ng-container [ngTemplateOutlet]="selectedTemplate">
+    </ng-container>
+  </mat-card>
+  <ng-template #GENERALINFO>
     <form [formGroup]="employeeInfo" fxLayout="column" style="width: 100%">
-
-       <div fxFlex="100%" fxLayout="row" fxLayout.lt-sm="column" >
+      <div fxFlex="100%" fxLayout="row" fxLayout.lt-sm="column">
         <div fxFlex="50%" fxFlex.lt-sm="100%" fxLayout="row" fxLayout.lt-md="column" class="form-field">
-          <mat-label  fxFlex="40%" fxFlex.lt-md="100%" >User Code</mat-label>
+          <mat-label fxFlex="40%" fxFlex.lt-md="100%">User Code</mat-label>
           <mat-form-field fxFlex.lt-md="100%" class="example-full-width" fxFlex="60%" appearance="outline">
-            <input formControlName="userCode" matInput/>
+            <input formControlName="userCode" matInput />
           </mat-form-field>
         </div>
-        <div fxFlex="50%" fxFlex.lt-sm="100%"  class="form-field" fxLayout="row" fxLayout.lt-md="column">
+        <div fxFlex="50%" fxFlex.lt-sm="100%" class="form-field" fxLayout="row" fxLayout.lt-md="column">
           <mat-label fxFlex="40%" fxFlex.lt-md="100%">First Name</mat-label>
           <mat-form-field class="example-full-width" fxFlex="60%" fxFlex.lt-md="100%" appearance="outline">
             <input formControlName="firstName" matInput />
@@ -24,14 +26,14 @@
         </div>
       </div>
 
-         <div fxFlex="100%" fxLayout="row" fxLayout.lt-sm="column" >
+      <div fxFlex="100%" fxLayout="row" fxLayout.lt-sm="column">
         <div fxFlex="50%" fxFlex.lt-sm="100%" fxLayout="row" fxLayout.lt-md="column" class="form-field">
-          <mat-label  fxFlex="40%" fxFlex.lt-md="100%" >Middle Name</mat-label>
+          <mat-label fxFlex="40%" fxFlex.lt-md="100%">Middle Name</mat-label>
           <mat-form-field fxFlex.lt-md="100%" class="example-full-width" fxFlex="60%" appearance="outline">
-            <input formControlName="middleName" matInput/>
+            <input formControlName="middleName" matInput />
           </mat-form-field>
         </div>
-        <div fxFlex="50%" fxFlex.lt-sm="100%"  class="form-field" fxLayout="row" fxLayout.lt-md="column">
+        <div fxFlex="50%" fxFlex.lt-sm="100%" class="form-field" fxLayout="row" fxLayout.lt-md="column">
           <mat-label fxFlex="40%" fxFlex.lt-md="100%">Last Name</mat-label>
           <mat-form-field class="example-full-width" fxFlex="60%" fxFlex.lt-md="100%" appearance="outline">
             <input formControlName="lastName" matInput />
@@ -39,14 +41,14 @@
         </div>
       </div>
 
-        <div fxFlex="100%" fxLayout="row" fxLayout.lt-sm="column" >
+      <div fxFlex="100%" fxLayout="row" fxLayout.lt-sm="column">
         <div fxFlex="50%" fxFlex.lt-sm="100%" fxLayout="row" fxLayout.lt-md="column" class="form-field">
-          <mat-label  fxFlex="40%" fxFlex.lt-md="100%" >Email</mat-label>
+          <mat-label fxFlex="40%" fxFlex.lt-md="100%">Email</mat-label>
           <mat-form-field fxFlex.lt-md="100%" class="example-full-width" fxFlex="60%" appearance="outline">
-            <input formControlName="email" matInput/>
+            <input formControlName="email" matInput />
           </mat-form-field>
         </div>
-        <div fxFlex="50%" fxFlex.lt-sm="100%"  class="form-field" fxLayout="row" fxLayout.lt-md="column">
+        <div fxFlex="50%" fxFlex.lt-sm="100%" class="form-field" fxLayout="row" fxLayout.lt-md="column">
           <mat-label fxFlex="40%" fxFlex.lt-md="100%">Alternate Email</mat-label>
           <mat-form-field class="example-full-width" fxFlex="60%" fxFlex.lt-md="100%" appearance="outline">
             <input formControlName="alternateEmail" matInput />
@@ -54,36 +56,62 @@
         </div>
       </div>
 
-         <div fxFlex="100%" fxLayout="row" fxLayout.lt-sm="column" >
+      <div fxFlex="100%" fxLayout="row" fxLayout.lt-sm="column">
         <div fxFlex="50%" fxFlex.lt-sm="100%" fxLayout="row" fxLayout.lt-md="column" class="form-field">
-          <mat-label  fxFlex="40%" fxFlex.lt-md="100%" >Age</mat-label>
+          <mat-label fxFlex="40%" fxFlex.lt-md="100%">Date of Birth</mat-label>
           <mat-form-field fxFlex.lt-md="100%" class="example-full-width" fxFlex="60%" appearance="outline">
-            <input formControlName="age" matInput/>
+            <input matInput formControlName="dateOfBirth" [matDatepicker]="picker">
+            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
           </mat-form-field>
         </div>
-        <div fxFlex="50%" fxFlex.lt-sm="100%"  class="form-field" fxLayout="row" fxLayout.lt-md="column">
+        <div fxFlex="50%" fxFlex.lt-sm="100%" class="form-field" fxLayout="row" fxLayout.lt-md="column">
           <mat-label fxFlex="40%" fxFlex.lt-md="100%">Gender</mat-label>
-          <mat-form-field class="example-full-width" fxFlex="60%" fxFlex.lt-md="100%" appearance="outline">
-            <input formControlName="gender" matInput />
+          <mat-form-field fxFlex.lt-md="100%" class="example-full-width" fxFlex="60%" appearance="outline">
+            <mat-select formControlName="gender">
+              <mat-option *ngFor="let gender of enduserconstant?.gender" [value]="gender">
+                {{gender}}
+              </mat-option>
+            </mat-select>
           </mat-form-field>
         </div>
       </div>
 
-        <div fxFlex="100%" fxLayout="row" fxLayout.lt-sm="column" >
+      <div fxFlex="100%" fxLayout="row" fxLayout.lt-sm="column">
         <div fxFlex="50%" fxFlex.lt-sm="100%" fxLayout="row" fxLayout.lt-md="column" class="form-field">
-          <mat-label  fxFlex="40%" fxFlex.lt-md="100%" >Marital Status</mat-label>
+          <mat-label fxFlex="40%" fxFlex.lt-md="100%">Marital Status</mat-label>
           <mat-form-field fxFlex.lt-md="100%" class="example-full-width" fxFlex="60%" appearance="outline">
-            <input formControlName="maritalStatus" matInput/>
+            <mat-select formControlName="maritalStatus">
+              <mat-option *ngFor="let item of enduserconstant?.maritalStatus" [value]="item">
+                {{item}}
+              </mat-option>
+            </mat-select>
           </mat-form-field>
         </div>
-        <div fxFlex="50%" fxFlex.lt-sm="100%"  class="form-field" fxLayout="row" fxLayout.lt-md="column">
+        <div fxFlex="50%" fxFlex.lt-sm="100%" class="form-field" fxLayout="row" fxLayout.lt-md="column">
           <mat-label fxFlex="40%" fxFlex.lt-md="100%">Work</mat-label>
           <mat-form-field class="example-full-width" fxFlex="60%" fxFlex.lt-md="100%" appearance="outline">
             <input formControlName="work" matInput />
           </mat-form-field>
         </div>
       </div>
-      
+
     </form>
-  </mat-card>
+  </ng-template>
+  <ng-template #CONTACT>
+    <h1>contact page works</h1>
+    <mat-tab-group animationDuration="0ms">
+      <mat-tab label="First">Content 1</mat-tab>
+      <mat-tab label="Second">Content 2</mat-tab>
+      <mat-tab label="Third">Content 3</mat-tab>
+    </mat-tab-group>
+  </ng-template>
+  <ng-template #MEDIHISTORY>
+    <h1>Medical History page works</h1>
+  </ng-template>
+  <ng-template #INSURANCEINFO>
+    <h1>Insurance page works</h1>
+  </ng-template>
+
+
 </div>

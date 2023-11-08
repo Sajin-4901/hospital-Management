@@ -1,3 +1,7 @@
+.example-toolbar button {
+  margin-bottom: -14px;
+}
+
 .example-container {
   display: flex;
   flex-direction: column;
@@ -6,6 +10,20 @@
   bottom: 0;
   left: 0;
   right: 0;
+}
+
+.nav-image {
+  height: 20px;
+  color: gray;
+  margin: 0px 10px -2px 0px;
+}
+
+.mat-nav-list {
+  padding: 16px !important;
+}
+
+.nav-name {
+  display: inline-block !important;
 }
 
 .example-is-mobile .example-toolbar {
@@ -35,7 +53,7 @@ h1.example-app-name {
 }
 
 mat-sidenav {
-  width: 200px !important;
+  width: 250px !important;
 }
 
 mat-sidenav-content {
