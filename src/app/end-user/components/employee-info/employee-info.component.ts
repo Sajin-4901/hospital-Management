@@ -46,14 +46,39 @@ export class EmployeeInfoComponent {
     });
 
     this.contactInfo = new FormGroup({
-      addressLine1: new FormControl(null, Validators.required),
-      addressLine2: new FormControl(null, Validators.required),
-      mobileNumber: new FormControl(null, Validators.required),
-      homePhoneNumber: new FormControl(null, Validators.required),
-      city: new FormControl(null, Validators.required),
-      country: new FormControl(null, Validators.required),
-      state: new FormControl(null, Validators.required),
-      zipCode: new FormControl(null, Validators.required),
+      presentAddress: new FormGroup({
+        addressLine1: new FormControl(null, Validators.required),
+        addressLine2: new FormControl(null, Validators.required),
+        mobileNumber: new FormControl(null, Validators.required),
+        homePhoneNumber: new FormControl(null, Validators.required),
+        city: new FormControl(null, Validators.required),
+        country: new FormControl(null, Validators.required),
+        state: new FormControl(null, Validators.required),
+        zipCode: new FormControl(null, Validators.required),
+      }),
+      permanentAddress: new FormGroup({
+        addressSane: new FormControl(false, Validators.required),
+        addressLine1: new FormControl(null, Validators.required),
+        addressLine2: new FormControl(null, Validators.required),
+        mobileNumber: new FormControl(null, Validators.required),
+        homePhoneNumber: new FormControl(null, Validators.required),
+        city: new FormControl(null, Validators.required),
+        country: new FormControl(null, Validators.required),
+        state: new FormControl(null, Validators.required),
+        zipCode: new FormControl(null, Validators.required),
+      }),
+      emergencyContact: new FormGroup({
+        contactName: new FormControl(null, Validators.required),
+        relationship: new FormControl(null, Validators.required),
+        addressLine1: new FormControl(null, Validators.required),
+        addressLine2: new FormControl(null, Validators.required),
+        mobileNumber: new FormControl(null, Validators.required),
+        homePhoneNumber: new FormControl(null, Validators.required),
+        city: new FormControl(null, Validators.required),
+        country: new FormControl(null, Validators.required),
+        state: new FormControl(null, Validators.required),
+        zipCode: new FormControl(null, Validators.required),
+      })
     })
   }
   templateSelection(id: any) {

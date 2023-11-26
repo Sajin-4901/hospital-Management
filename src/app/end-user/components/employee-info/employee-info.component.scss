@@ -71,8 +71,14 @@ mat-label {
   margin-top: -13px !important;
 }
 
+
+
 @media screen and (max-width: 600px) {
   .form-field {
     margin-right: 0px;
+  }
+
+  ::ng-deep .mat-mdc-tab-header {
+    width: 100% !important;
   }
 }
