@@ -12,6 +12,7 @@ export class EmployeeInfoComponent {
   hoveredIndex = 0;
   dashboardCategory!: any[];
   employeeInfo!: FormGroup;
+  contactInfo!: FormGroup;
   enduserconstant: enduserconstant;
   @ViewChild('GENERALINFO', { static: true }) GENERALINFO !: TemplateRef<any>;
   @ViewChild('CONTACT', { static: true }) CONTACT !: TemplateRef<any>;
@@ -28,6 +29,9 @@ export class EmployeeInfoComponent {
       { name: 'Medical History', template: this.MEDIHISTORY },
     ]
     this.selectedTemplate = this.dashboardCategory[this.hoveredIndex]?.template;
+    this.formInitialization();
+  }
+  formInitialization() {
     this.employeeInfo = new FormGroup({
       userCode: new FormControl(null, Validators.required),
       firstName: new FormControl(null, Validators.required),
@@ -39,6 +43,17 @@ export class EmployeeInfoComponent {
       gender: new FormControl(null, Validators.required),
       maritalStatus: new FormControl(null, Validators.required),
       work: new FormControl(null, Validators.required),
+    });
+
+    this.contactInfo = new FormGroup({
+      addressLine1: new FormControl(null, Validators.required),
+      addressLine2: new FormControl(null, Validators.required),
+      mobileNumber: new FormControl(null, Validators.required),
+      homePhoneNumber: new FormControl(null, Validators.required),
+      city: new FormControl(null, Validators.required),
+      country: new FormControl(null, Validators.required),
+      state: new FormControl(null, Validators.required),
+      zipCode: new FormControl(null, Validators.required),
     })
   }
   templateSelection(id: any) {

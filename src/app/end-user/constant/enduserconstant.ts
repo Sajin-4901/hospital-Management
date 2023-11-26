@@ -9,4 +9,6 @@ export class enduserconstant {
     'Married',
     'Un-married'
   ]
+
+  contactinfoSubdivisions = ["Present Address", "Permanent Address", "Emergency Contact"];
 }

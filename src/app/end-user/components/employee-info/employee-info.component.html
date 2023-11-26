@@ -101,7 +101,79 @@
   <ng-template #CONTACT>
     <h1>contact page works</h1>
     <mat-tab-group animationDuration="0ms">
-      <mat-tab label="First">Content 1</mat-tab>
+      <mat-tab label="First">
+          <form [formGroup]="contactInfo" fxLayout="column" style="width: 100%;padding-top:20px">
+      <div fxFlex="100%" fxLayout="row" fxLayout.lt-sm="column">
+        <div fxFlex="50%" fxFlex.lt-sm="100%" fxLayout="row" fxLayout.lt-md="column" class="form-field">
+          <mat-label fxFlex="40%" fxFlex.lt-md="100%">Address Line 1</mat-label>
+          <mat-form-field fxFlex.lt-md="100%" class="example-full-width" fxFlex="60%" appearance="outline">
+            <input formControlName="addressLine1" matInput />
+          </mat-form-field>
+        </div>
+        <div fxFlex="50%" fxFlex.lt-sm="100%" class="form-field" fxLayout="row" fxLayout.lt-md="column">
+          <mat-label fxFlex="40%" fxFlex.lt-md="100%">Address Line 2</mat-label>
+          <mat-form-field class="example-full-width" fxFlex="60%" fxFlex.lt-md="100%" appearance="outline">
+            <input formControlName="addressLine2" matInput />
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div fxFlex="100%" fxLayout="row" fxLayout.lt-sm="column">
+        
+        <div fxFlex="50%" fxFlex.lt-sm="100%" class="form-field" fxLayout="row" fxLayout.lt-md="column">
+          <mat-label fxFlex="40%" fxFlex.lt-md="100%">City</mat-label>
+          <mat-form-field class="example-full-width" fxFlex="60%" fxFlex.lt-md="100%" appearance="outline">
+            <input formControlName="city" matInput />
+          </mat-form-field>
+        </div>
+         <div fxFlex="50%" fxFlex.lt-sm="100%" fxLayout="row" fxLayout.lt-md="column" class="form-field">
+          <mat-label fxFlex="40%" fxFlex.lt-md="100%">Country</mat-label>
+          <mat-form-field fxFlex.lt-md="100%" class="example-full-width" fxFlex="60%" appearance="outline">
+            <mat-select formControlName="country">
+              <mat-option *ngFor="let item of enduserconstant?.maritalStatus" [value]="item">
+                {{item}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div fxFlex="100%" fxLayout="row" fxLayout.lt-sm="column">
+        <div fxFlex="50%" fxFlex.lt-sm="100%" fxLayout="row" fxLayout.lt-md="column" class="form-field">
+          <mat-label fxFlex="40%" fxFlex.lt-md="100%">State</mat-label>
+          <mat-form-field fxFlex.lt-md="100%" class="example-full-width" fxFlex="60%" appearance="outline">
+            <mat-select formControlName="state">
+              <mat-option *ngFor="let item of enduserconstant?.maritalStatus" [value]="item">
+                {{item}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+                <div fxFlex="50%" fxFlex.lt-sm="100%" fxLayout="row" fxLayout.lt-md="column" class="form-field">
+          <mat-label fxFlex="40%" fxFlex.lt-md="100%">Zip Code</mat-label>
+          <mat-form-field fxFlex.lt-md="100%" class="example-full-width" fxFlex="60%" appearance="outline">
+            <input formControlName="zipCode" matInput />
+          </mat-form-field>
+        </div>
+      </div>
+
+        <div fxFlex="100%" fxLayout="row" fxLayout.lt-sm="column">
+<div fxFlex="50%" fxFlex.lt-sm="100%" fxLayout="row" fxLayout.lt-md="column" class="form-field">
+          <mat-label fxFlex="40%" fxFlex.lt-md="100%">mobile Number</mat-label>
+          <mat-form-field fxFlex.lt-md="100%" class="example-full-width" fxFlex="60%" appearance="outline">
+            <input formControlName="mobileNumber" matInput />
+          </mat-form-field>
+        </div>
+        <div fxFlex="50%" fxFlex.lt-sm="100%" fxLayout="row" fxLayout.lt-md="column" class="form-field">
+          <mat-label fxFlex="40%" fxFlex.lt-md="100%">Home Phone Number</mat-label>
+          <mat-form-field fxFlex.lt-md="100%" class="example-full-width" fxFlex="60%" appearance="outline">
+            <input formControlName="homePhoneNumber" matInput />
+          </mat-form-field>
+        </div>
+      </div>
+
+    </form>
+      </mat-tab>
       <mat-tab label="Second">Content 2</mat-tab>
       <mat-tab label="Third">Content 3</mat-tab>
     </mat-tab-group>
