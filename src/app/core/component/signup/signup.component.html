@@ -1,0 +1,385 @@
+<app-loader *ngIf="isLoader"></app-loader>
+<div *ngIf="!isLoader" style="background-color: #ececec;min-height: 100vh;padding: 20px;">
+  <mat-card style="padding: 20px;margin: 0px;">
+    <mat-stepper *ngIf="employeeInfo" class="example-stepper" [orientation]="(stepperOrientation | async)!">
+      <mat-step [stepControl]="employeeInfo" label="General Information">
+        <ng-container [ngTemplateOutlet]="GENERALINFO">
+        </ng-container>
+        <div>
+          <button mat-raised-button color="primary" matStepperNext>Next</button>
+        </div>
+      </mat-step>
+      <mat-step [stepControl]="contactInfo" label="Fill out your address">
+        <ng-container [ngTemplateOutlet]="CONTACTINFO">
+        </ng-container>
+        <div>
+          <button style="padding: 20px;" mat-button matStepperPrevious mat-raised-button color="warn">Back</button>
+          <button style="padding: 20px;" mat-raised-button color="primary" matStepperNext>Next</button>
+        </div>
+      </mat-step>
+
+      <mat-step label="Setting Password">
+        <ng-container [ngTemplateOutlet]="SETTINGPASSWORD">
+        </ng-container>
+        <div fxLayoutAlign="center center">
+          <button mat-raised-button color="primary">Submit</button>
+        </div>
+      </mat-step>
+    </mat-stepper>
+  </mat-card>
+</div>
+
+
+<ng-template #GENERALINFO>
+  <form [formGroup]="employeeInfo" fxLayout="column" style="width: 100%">
+    <div fxFlex="100%" fxLayout="row" fxLayout.lt-sm="column">
+      <div fxFlex="50%" fxFlex.lt-sm="100%" class="form-field" fxLayout="row" fxLayout.lt-md="column">
+        <mat-label fxFlex="40%" fxFlex.lt-md="100%">First Name</mat-label>
+        <mat-form-field class="example-full-width" fxFlex="60%" fxFlex.lt-md="100%" appearance="outline">
+          <input formControlName="firstName" matInput />
+        </mat-form-field>
+      </div>
+      <div fxFlex="50%" fxFlex.lt-sm="100%" fxLayout="row" fxLayout.lt-md="column" class="form-field">
+        <mat-label fxFlex="40%" fxFlex.lt-md="100%">Middle Name</mat-label>
+        <mat-form-field fxFlex.lt-md="100%" class="example-full-width" fxFlex="60%" appearance="outline">
+          <input formControlName="middleName" matInput />
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div fxFlex="100%" fxLayout="row" fxLayout.lt-sm="column">
+      <div fxFlex="50%" fxFlex.lt-sm="100%" class="form-field" fxLayout="row" fxLayout.lt-md="column">
+        <mat-label fxFlex="40%" fxFlex.lt-md="100%">Last Name</mat-label>
+        <mat-form-field class="example-full-width" fxFlex="60%" fxFlex.lt-md="100%" appearance="outline">
+          <input formControlName="lastName" matInput />
+        </mat-form-field>
+      </div>
+      <div fxFlex="50%" fxFlex.lt-sm="100%" class="form-field" fxLayout="row" fxLayout.lt-md="column">
+        <mat-label fxFlex="40%" fxFlex.lt-md="100%">father Name</mat-label>
+        <mat-form-field class="example-full-width" fxFlex="60%" fxFlex.lt-md="100%" appearance="outline">
+          <input formControlName="fatherName" matInput />
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div fxFlex="100%" fxLayout="row" fxLayout.lt-sm="column">
+      <div fxFlex="50%" fxFlex.lt-sm="100%" fxLayout="row" fxLayout.lt-md="column" class="form-field">
+        <mat-label fxFlex="40%" fxFlex.lt-md="100%">Email</mat-label>
+        <mat-form-field fxFlex.lt-md="100%" class="example-full-width" fxFlex="60%" appearance="outline">
+          <input formControlName="email" matInput />
+        </mat-form-field>
+      </div>
+      <div fxFlex="50%" fxFlex.lt-sm="100%" class="form-field" fxLayout="row" fxLayout.lt-md="column">
+        <mat-label fxFlex="40%" fxFlex.lt-md="100%">Alternate Email</mat-label>
+        <mat-form-field class="example-full-width" fxFlex="60%" fxFlex.lt-md="100%" appearance="outline">
+          <input formControlName="alternateEmail" matInput />
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div fxFlex="100%" fxLayout="row" fxLayout.lt-sm="column">
+      <div fxFlex="50%" fxFlex.lt-sm="100%" fxLayout="row" fxLayout.lt-md="column" class="form-field">
+        <mat-label fxFlex="40%" fxFlex.lt-md="100%">Date of Birth</mat-label>
+        <mat-form-field fxFlex.lt-md="100%" class="example-full-width" fxFlex="60%" appearance="outline">
+          <input matInput formControlName="dateOfBirth" [matDatepicker]="picker">
+          <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+      </div>
+      <div fxFlex="50%" fxFlex.lt-sm="100%" class="form-field" fxLayout="row" fxLayout.lt-md="column">
+        <mat-label fxFlex="40%" fxFlex.lt-md="100%">Gender</mat-label>
+        <mat-form-field fxFlex.lt-md="100%" class="example-full-width" fxFlex="60%" appearance="outline">
+          <mat-select formControlName="gender">
+            <mat-option *ngFor="let gender of loginConstant?.gender" [value]="gender">
+              {{gender}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div fxFlex="100%" fxLayout="row" fxLayout.lt-sm="column">
+      <div fxFlex="50%" fxFlex.lt-sm="100%" fxLayout="row" fxLayout.lt-md="column" class="form-field">
+        <mat-label fxFlex="40%" fxFlex.lt-md="100%">Marital Status</mat-label>
+        <mat-form-field fxFlex.lt-md="100%" class="example-full-width" fxFlex="60%" appearance="outline">
+          <mat-select formControlName="maritalStatus">
+            <mat-option *ngFor="let item of loginConstant?.maritalStatus" [value]="item">
+              {{item}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div fxFlex="50%" fxFlex.lt-sm="100%" class="form-field" fxLayout="row" fxLayout.lt-md="column">
+        <mat-label fxFlex="40%" fxFlex.lt-md="100%">Work</mat-label>
+        <mat-form-field class="example-full-width" fxFlex="60%" fxFlex.lt-md="100%" appearance="outline">
+          <input formControlName="work" matInput />
+        </mat-form-field>
+      </div>
+    </div>
+
+
+  </form>
+
+</ng-template>
+<ng-template #CONTACTINFO>
+
+  <form [formGroup]="contactInfo" fxLayout="column" style="width: 100%">
+    <h3 style="margin: 0px;padding-top: 20px;">Present Address :</h3>
+    <div formGroupName="presentAddress" fxLayout="column">
+      <div fxFlex="100%" fxLayout="row" fxLayout.lt-sm="column">
+        <div fxFlex="50%" fxFlex.lt-sm="100%" fxLayout="row" fxLayout.lt-md="column" class="form-field">
+          <mat-label fxFlex="40%" fxFlex.lt-md="100%">Address Line 1</mat-label>
+          <mat-form-field fxFlex.lt-md="100%" class="example-full-width" fxFlex="60%" appearance="outline">
+            <input formControlName="addressLine1" matInput />
+          </mat-form-field>
+        </div>
+        <div fxFlex="50%" fxFlex.lt-sm="100%" class="form-field" fxLayout="row" fxLayout.lt-md="column">
+          <mat-label fxFlex="40%" fxFlex.lt-md="100%">Address Line 2</mat-label>
+          <mat-form-field class="example-full-width" fxFlex="60%" fxFlex.lt-md="100%" appearance="outline">
+            <input formControlName="addressLine2" matInput />
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div fxFlex="100%" fxLayout="row" fxLayout.lt-sm="column">
+
+        <div fxFlex="50%" fxFlex.lt-sm="100%" class="form-field" fxLayout="row" fxLayout.lt-md="column">
+          <mat-label fxFlex="40%" fxFlex.lt-md="100%">City</mat-label>
+          <mat-form-field class="example-full-width" fxFlex="60%" fxFlex.lt-md="100%" appearance="outline">
+            <input formControlName="city" matInput />
+          </mat-form-field>
+        </div>
+        <div fxFlex="50%" fxFlex.lt-sm="100%" fxLayout="row" fxLayout.lt-md="column" class="form-field">
+          <mat-label fxFlex="40%" fxFlex.lt-md="100%">Country</mat-label>
+          <mat-form-field fxFlex.lt-md="100%" class="example-full-width" fxFlex="60%" appearance="outline">
+            <mat-select formControlName="country" (selectionChange)="getState($event , 'presentAddress')">
+              <mat-option *ngFor="let item of Countries" [value]="item">
+                {{item?.name}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div fxFlex="100%" fxLayout="row" fxLayout.lt-sm="column">
+        <div fxFlex="50%" fxFlex.lt-sm="100%" fxLayout="row" fxLayout.lt-md="column" class="form-field">
+          <mat-label fxFlex="40%" fxFlex.lt-md="100%">State</mat-label>
+          <mat-form-field fxFlex.lt-md="100%" class="example-full-width" fxFlex="60%" appearance="outline">
+            <mat-select formControlName="state">
+              <mat-option *ngFor="let item of presentAddstate" [value]="item">
+                {{item?.name}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div fxFlex="50%" fxFlex.lt-sm="100%" fxLayout="row" fxLayout.lt-md="column" class="form-field">
+          <mat-label fxFlex="40%" fxFlex.lt-md="100%">Zip Code</mat-label>
+          <mat-form-field fxFlex.lt-md="100%" class="example-full-width" fxFlex="60%" appearance="outline">
+            <input formControlName="zipCode" matInput />
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div fxFlex="100%" fxLayout="row" fxLayout.lt-sm="column">
+        <div fxFlex="50%" fxFlex.lt-sm="100%" fxLayout="row" fxLayout.lt-md="column" class="form-field">
+          <mat-label fxFlex="40%" fxFlex.lt-md="100%">mobile Number</mat-label>
+          <mat-form-field fxFlex.lt-md="100%" class="example-full-width" fxFlex="60%" appearance="outline">
+            <input formControlName="mobileNumber" matInput />
+          </mat-form-field>
+        </div>
+        <div fxFlex="50%" fxFlex.lt-sm="100%" fxLayout="row" fxLayout.lt-md="column" class="form-field">
+          <mat-label fxFlex="40%" fxFlex.lt-md="100%">Home Phone Number</mat-label>
+          <mat-form-field fxFlex.lt-md="100%" class="example-full-width" fxFlex="60%" appearance="outline">
+            <input formControlName="homePhoneNumber" matInput />
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+    <h3 style="margin: 0px;padding-top: 20px;">Permanent Address :</h3>
+    <div formGroupName="permanentAddress" fxLayout="column">
+      <mat-checkbox formControlName="addressSame" (change)="addressType($event)" style="padding:20px 0px"
+        class="example-margin">Same as
+        Present
+        Address</mat-checkbox>
+      <div *ngIf="!sameAddress" fxLayout="column">
+        <div fxFlex="100%" fxLayout="row" fxLayout.lt-sm="column">
+          <div fxFlex="50%" fxFlex.lt-sm="100%" fxLayout="row" fxLayout.lt-md="column" class="form-field">
+            <mat-label fxFlex="40%" fxFlex.lt-md="100%">Address Line 1</mat-label>
+            <mat-form-field fxFlex.lt-md="100%" class="example-full-width" fxFlex="60%" appearance="outline">
+              <input formControlName="addressLine1" matInput />
+            </mat-form-field>
+          </div>
+          <div fxFlex="50%" fxFlex.lt-sm="100%" class="form-field" fxLayout="row" fxLayout.lt-md="column">
+            <mat-label fxFlex="40%" fxFlex.lt-md="100%">Address Line 2</mat-label>
+            <mat-form-field class="example-full-width" fxFlex="60%" fxFlex.lt-md="100%" appearance="outline">
+              <input formControlName="addressLine2" matInput />
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div fxFlex="100%" fxLayout="row" fxLayout.lt-sm="column">
+
+          <div fxFlex="50%" fxFlex.lt-sm="100%" class="form-field" fxLayout="row" fxLayout.lt-md="column">
+            <mat-label fxFlex="40%" fxFlex.lt-md="100%">City</mat-label>
+            <mat-form-field class="example-full-width" fxFlex="60%" fxFlex.lt-md="100%" appearance="outline">
+              <input formControlName="city" matInput />
+            </mat-form-field>
+          </div>
+          <div fxFlex="50%" fxFlex.lt-sm="100%" fxLayout="row" fxLayout.lt-md="column" class="form-field">
+            <mat-label fxFlex="40%" fxFlex.lt-md="100%">Country</mat-label>
+            <mat-form-field fxFlex.lt-md="100%" class="example-full-width" fxFlex="60%" appearance="outline">
+              <mat-select formControlName="country" (selectionChange)="getState($event, 'permanentAddress')">
+                <mat-option *ngFor="let item of Countries" [value]="item">
+                  {{item?.name}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div fxFlex="100%" fxLayout="row" fxLayout.lt-sm="column">
+          <div fxFlex="50%" fxFlex.lt-sm="100%" fxLayout="row" fxLayout.lt-md="column" class="form-field">
+            <mat-label fxFlex="40%" fxFlex.lt-md="100%">State</mat-label>
+            <mat-form-field fxFlex.lt-md="100%" class="example-full-width" fxFlex="60%" appearance="outline">
+              <mat-select formControlName="state">
+                <mat-option *ngFor="let item of permanentAddstate" [value]="item">
+                  {{item?.name}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div fxFlex="50%" fxFlex.lt-sm="100%" fxLayout="row" fxLayout.lt-md="column" class="form-field">
+            <mat-label fxFlex="40%" fxFlex.lt-md="100%">Zip Code</mat-label>
+            <mat-form-field fxFlex.lt-md="100%" class="example-full-width" fxFlex="60%" appearance="outline">
+              <input formControlName="zipCode" matInput />
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div fxFlex="100%" fxLayout="row" fxLayout.lt-sm="column">
+          <div fxFlex="50%" fxFlex.lt-sm="100%" fxLayout="row" fxLayout.lt-md="column" class="form-field">
+            <mat-label fxFlex="40%" fxFlex.lt-md="100%">mobile Number</mat-label>
+            <mat-form-field fxFlex.lt-md="100%" class="example-full-width" fxFlex="60%" appearance="outline">
+              <input formControlName="mobileNumber" matInput />
+            </mat-form-field>
+          </div>
+          <div fxFlex="50%" fxFlex.lt-sm="100%" fxLayout="row" fxLayout.lt-md="column" class="form-field">
+            <mat-label fxFlex="40%" fxFlex.lt-md="100%">Home Phone Number</mat-label>
+            <mat-form-field fxFlex.lt-md="100%" class="example-full-width" fxFlex="60%" appearance="outline">
+              <input formControlName="homePhoneNumber" matInput />
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+    </div>
+    <h3 style="margin: 0px;padding-top: 20px;">Emergency Contact :</h3>
+    <div formGroupName="emergencyContact" fxLayout="column" style="padding-top:20px">
+      <div fxFlex="100%" fxLayout="row" fxLayout.lt-sm="column">
+        <div fxFlex="50%" fxFlex.lt-sm="100%" fxLayout="row" fxLayout.lt-md="column" class="form-field">
+          <mat-label fxFlex="40%" fxFlex.lt-md="100%">Contact Nmae</mat-label>
+          <mat-form-field fxFlex.lt-md="100%" class="example-full-width" fxFlex="60%" appearance="outline">
+            <input formControlName="contactName" matInput />
+          </mat-form-field>
+        </div>
+        <div fxFlex="50%" fxFlex.lt-sm="100%" class="form-field" fxLayout="row" fxLayout.lt-md="column">
+          <mat-label fxFlex="40%" fxFlex.lt-md="100%">Relation Ship</mat-label>
+          <mat-form-field class="example-full-width" fxFlex="60%" fxFlex.lt-md="100%" appearance="outline">
+            <input formControlName="relationship" matInput />
+          </mat-form-field>
+        </div>
+      </div>
+      <div fxFlex="100%" fxLayout="row" fxLayout.lt-sm="column">
+        <div fxFlex="50%" fxFlex.lt-sm="100%" fxLayout="row" fxLayout.lt-md="column" class="form-field">
+          <mat-label fxFlex="40%" fxFlex.lt-md="100%">Address Line 1</mat-label>
+          <mat-form-field fxFlex.lt-md="100%" class="example-full-width" fxFlex="60%" appearance="outline">
+            <input formControlName="addressLine1" matInput />
+          </mat-form-field>
+        </div>
+        <div fxFlex="50%" fxFlex.lt-sm="100%" class="form-field" fxLayout="row" fxLayout.lt-md="column">
+          <mat-label fxFlex="40%" fxFlex.lt-md="100%">Address Line 2</mat-label>
+          <mat-form-field class="example-full-width" fxFlex="60%" fxFlex.lt-md="100%" appearance="outline">
+            <input formControlName="addressLine2" matInput />
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div fxFlex="100%" fxLayout="row" fxLayout.lt-sm="column">
+
+        <div fxFlex="50%" fxFlex.lt-sm="100%" class="form-field" fxLayout="row" fxLayout.lt-md="column">
+          <mat-label fxFlex="40%" fxFlex.lt-md="100%">City</mat-label>
+          <mat-form-field class="example-full-width" fxFlex="60%" fxFlex.lt-md="100%" appearance="outline">
+            <input formControlName="city" matInput />
+          </mat-form-field>
+        </div>
+        <div fxFlex="50%" fxFlex.lt-sm="100%" fxLayout="row" fxLayout.lt-md="column" class="form-field">
+          <mat-label fxFlex="40%" fxFlex.lt-md="100%">Country</mat-label>
+          <mat-form-field fxFlex.lt-md="100%" class="example-full-width" fxFlex="60%" appearance="outline">
+            <mat-select formControlName="country" (selectionChange)="getState($event , 'emergencyContact')">
+              <mat-option *ngFor="let item of Countries" [value]="item">
+                {{item?.name}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div fxFlex="100%" fxLayout="row" fxLayout.lt-sm="column">
+        <div fxFlex="50%" fxFlex.lt-sm="100%" fxLayout="row" fxLayout.lt-md="column" class="form-field">
+          <mat-label fxFlex="40%" fxFlex.lt-md="100%">State</mat-label>
+          <mat-form-field fxFlex.lt-md="100%" class="example-full-width" fxFlex="60%" appearance="outline">
+            <mat-select formControlName="state">
+              <mat-option *ngFor="let item of emergencyContactAddstate" [value]="item">
+                {{item?.name}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div fxFlex="50%" fxFlex.lt-sm="100%" fxLayout="row" fxLayout.lt-md="column" class="form-field">
+          <mat-label fxFlex="40%" fxFlex.lt-md="100%">Zip Code</mat-label>
+          <mat-form-field fxFlex.lt-md="100%" class="example-full-width" fxFlex="60%" appearance="outline">
+            <input formControlName="zipCode" matInput />
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div fxFlex="100%" fxLayout="row" fxLayout.lt-sm="column">
+        <div fxFlex="50%" fxFlex.lt-sm="100%" fxLayout="row" fxLayout.lt-md="column" class="form-field">
+          <mat-label fxFlex="40%" fxFlex.lt-md="100%">mobile Number</mat-label>
+          <mat-form-field fxFlex.lt-md="100%" class="example-full-width" fxFlex="60%" appearance="outline">
+            <input formControlName="mobileNumber" matInput />
+          </mat-form-field>
+        </div>
+        <div fxFlex="50%" fxFlex.lt-sm="100%" fxLayout="row" fxLayout.lt-md="column" class="form-field">
+          <mat-label fxFlex="40%" fxFlex.lt-md="100%">Home Phone Number</mat-label>
+          <mat-form-field fxFlex.lt-md="100%" class="example-full-width" fxFlex="60%" appearance="outline">
+            <input formControlName="homePhoneNumber" matInput />
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+  </form>
+</ng-template>
+<ng-template #SETTINGPASSWORD>
+  <form [formGroup]="createUser" fxLayout="column" fxLayoutAlign="center center">
+    <div fxLayout="column" [ngStyle]="{'width': '60%','margin-top': '50px'}" [ngStyle.lt-md]="{'width':'90%','margin-top':'30px'}" [ngStyle.lt-sm]="{'width':'100%'}" fxLayout.lt-sm="column">
+      <div fxFlex="100%" fxFlex.lt-sm="100%" class="form-field" fxLayout="row" fxLayout.lt-md="column">
+        <mat-label fxFlex="30%" fxFlex.lt-md="100%">Username : </mat-label>
+        <mat-form-field class="example-full-width" fxFlex="70%" fxFlex.lt-md="100%" appearance="outline">
+          <input formControlName="userId" matInput />
+        </mat-form-field>
+      </div>
+      <div fxFlex="100%" fxFlex.lt-sm="100%" class="form-field" fxLayout="row" fxLayout.lt-md="column">
+        <mat-label fxFlex="30%" fxFlex.lt-md="100%">Create Password : </mat-label>
+        <mat-form-field class="example-full-width" fxFlex="70%" fxFlex.lt-md="100%" appearance="outline">
+          <input formControlName="password" matInput />
+        </mat-form-field>
+      </div>
+      <div fxFlex="100%" fxFlex.lt-sm="100%" class="form-field" fxLayout="row" fxLayout.lt-md="column">
+        <mat-label fxFlex="30%" fxFlex.lt-md="100%">Re-enter Password : </mat-label>
+        <mat-form-field class="example-full-width" fxFlex="70%" fxFlex.lt-md="100%" appearance="outline">
+          <input formControlName="reenterPassword" matInput />
+        </mat-form-field>
+      </div>
+    </div>
+  </form>
+</ng-template>

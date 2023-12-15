@@ -1,0 +1,113 @@
+.example-stepper {
+  margin-top: 8px;
+}
+
+.mat-mdc-form-field {
+  margin-top: 16px;
+}
+
+// .container {
+//   background-color: #ececec;
+// }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css");
+
+mat-label {
+  padding-top: 22px !important;
+  margin-bottom: 4px;
+}
+
+// mat-tab-group mat-tab-header {
+//   width: 50% !important;
+// }
+::ng-deep .mat-mdc-tab-header {
+  width: 50% !important;
+}
+
+.active {
+  background-color: var(--primary-color) !important;
+  color: white !important;
+}
+
+.outer-container {
+  background-color: #ececec;
+  width: 100%;
+  padding: 10px;
+}
+
+.icon {
+  color: black;
+  font-size: 19px;
+  font-weight: 700;
+}
+
+.inner-container {
+  width: 98%;
+  margin: 20px 0px;
+  padding: 15px;
+  background-color: white;
+}
+
+.myinfo-category {
+  margin: 10px;
+}
+
+.form-field {
+  margin-right: 5%;
+  margin-bottom: 10px;
+}
+
+.sub-menu {
+  display: inline-block;
+  padding: 4px 9px;
+  border-radius: 5px;
+  border: 1px solid gray;
+  color: blue;
+}
+
+.form-container {
+  background-color: white;
+  width: 98%;
+  padding: 15px;
+}
+
+::ng-deep .mat-mdc-text-field-wrapper {
+  height: 40px !important;
+}
+
+::ng-deep .mat-mdc-text-field-wrapper.mdc-text-field--outlined .mat-mdc-form-field-infix {
+  padding-top: 8px !important;
+}
+
+::ng-deep .mat-mdc-icon-button.mat-mdc-button-base {
+  margin-top: -13px !important;
+}
+
+
+
+@media screen and (max-width: 600px) {
+  .form-field {
+    margin-right: 0px;
+  }
+  mat-label {
+    padding-top: 0px !important;
+    margin-bottom: 0px;
+  }
+
+  ::ng-deep .mat-mdc-tab-header {
+    width: 100% !important;
+  }
+}

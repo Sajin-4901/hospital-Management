@@ -4,9 +4,13 @@ const refreshTokens = {}
 const validator = require('validator');
 const loginTable = require('../models').login;
 const bcrypt = require('bcrypt');
+const mailService = require('./sendmain.service');
+const cryptoService = require('./crypto.service');
+
 
 
 const signin = async function (body) {
+  console.log('body---->', body.email);
   if (validator.isEmail(body.email)) {
     let [err, user] = await to(loginTable.findOne({
       where: {
@@ -45,3 +49,30 @@ const signin = async function (body) {
   }
 };
 module.exports.signin = signin;
+
+const signup = async function (body) {
+  if (validator.isEmail(body.email)) {
+    [err, user] = await to(loginTable.findOne({
+      where: {
+        email: body.email
+      }
+    }))
+    if (err) return TE("Error occurs during signing up, Please try again later!")
+    if (user) return TE("Email already exists")
+    if (!user) {
+      [err, encryptEmail] = await to(cryptoService.encrypt(body.email));
+      if (encryptEmail) {
+        console.log('encjkj---->', encryptEmail);
+        [err, sendmail] = await to(mailService.sendMail(body.email,
+          '<h3>Hello Sir/Madam,</h3><br><h3>Tap this link to register yourself.</h3><br><a href="http://localhost:55868/signupform/' + encryptEmail + '">link</a>', "ZENYO MANAGEMENT - Signup"));
+        if (err) return TE(err);
+        if (sendmail) return sendmail;
+      }
+
+    }
+  }
+  else {
+    return TE('invalid Email..')
+  }
+}
+module.exports.signup = signup

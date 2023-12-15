@@ -6,5 +6,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./emp-list.component.scss']
 })
 export class EmpListComponent {
-
+  value = 'ljkkakjkjk';
+  ngOnInit() {
+    const regex = /aa/
+    console.log('vall:', regex.test(this.value));
+  }
 }

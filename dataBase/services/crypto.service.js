@@ -6,7 +6,7 @@ const CryptoJS = require('crypto-js');
 const encrypt = async function (plaintext) {
   let ciphertext;
   ciphertext = CryptoJS.AES.encrypt(plaintext.toString(), CONFIG.secretKey).toString();
-  return ciphertext;
+  return ciphertext.replace(/\//g, '|');
 };
 module.exports.encrypt = encrypt;
 /**
@@ -15,8 +15,8 @@ module.exports.encrypt = encrypt;
  */
 const decrypt = function (ciphertext) {
   let plaintext;
-  const bytes = CryptoJS.AES.decrypt(ciphertext.toString(), CONFIG.secretKey);
+  const bytes = CryptoJS.AES.decrypt(ciphertext?.toString(), CONFIG.secretKey);
   plaintext = bytes.toString(CryptoJS.enc.Utf8);
-  return plaintext;
+  return plaintext.replace(/\|/g, '/');
 };
 module.exports.decrypt = decrypt;

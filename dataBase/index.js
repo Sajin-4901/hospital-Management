@@ -32,13 +32,15 @@ app.use(function (req, res, next) {
   next(createError(404));
 });
 const models = require('./models');
-models.sequelize.authenticate().then(() => {
-  console.log('connected to sql database:sequelize');
-}).catch((err) => {
-  console.log('unable to connect to sql database:sequelize', err.message);
-});
-models.sequelize.sync({ alter: true });
 
+models.sequelize.authenticate().then(() => {
+  console.log('connected to data base');
+  const schema = models.schemaCreate.then(() => {
+    models.sequelize.sync();
+  });
+}).catch((err) => {
+  console.log("unable to connect database");
+});
 // error handler
 app.use(function (err, req, res, next) {
   // set locals, only providing error in development

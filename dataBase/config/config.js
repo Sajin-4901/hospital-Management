@@ -1,7 +1,13 @@
 require('dotenv').config();
 
 CONFIG = {};
-
+CONFIG.SCHEMAS = [
+  'hospitalManagement',
+  'data'
+];
+CONFIG.user = process.env.user;
+CONFIG.secretKey = process.env.SECRETKEY;
+CONFIG.pass = process.env.pass;
 CONFIG.db_host = process.env.DB_HOST;
 CONFIG.db_port = process.env.DB_PORT;
 CONFIG.db_name = process.env.DB_NAME;

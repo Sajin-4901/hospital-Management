@@ -11,23 +11,35 @@ export class CustomValidatorServiceService {
   // constructor(private httpservice : HttpServiceService){
 
   // // }
-  deviceInfo!:DeviceInfo ;
+  deviceInfo!: DeviceInfo;
   constructor(
     private deviceDetectorService: DeviceDetectorService,
-    private http : HttpClient,
+    private http: HttpClient,
     private httpService: HttpServiceService
-    ) {}
+  ) { }
   // ngOnInit(){
   //  }
 
-  getDeviceInfo(){
+  getDeviceInfo() {
     this.deviceInfo = this.deviceDetectorService.getDeviceInfo();
     return this.deviceInfo;
   }
-  getIp(){
+  getIp() {
     return this.http.get("https://api64.ipify.org/?format=json");
   }
-  signin(data:any){
-    return this.httpService.post('signin',data);
+  signin(data: any) {
+    return this.httpService.post('signin', data);
+  }
+  getCountry() {
+    return this.httpService.get('getCountry');
+  }
+  getState(data: any) {
+    console.log('data:', data);
+    return this.httpService.post('getState', data);
+  }
+  onSignUp(data: any) {
+    console.log('data :', data);
+    console.log('s1');
+    return this.httpService.post('signup', data);
   }
 }

@@ -19,6 +19,8 @@ import { MatCardModule } from '@angular/material/card';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatTabsModule } from '@angular/material/tabs';
+import { AsyncPipe } from '@angular/common';
+import { MatStepperModule } from '@angular/material/stepper';
 @NgModule({
   declarations: [],
   imports: [
@@ -45,7 +47,8 @@ import { MatTabsModule } from '@angular/material/tabs';
     MatNativeDateModule,
     MatTabsModule,
     MatCheckboxModule,
-
+    MatStepperModule,
+    AsyncPipe
 
   ],
   exports: [
@@ -71,6 +74,8 @@ import { MatTabsModule } from '@angular/material/tabs';
     MatNativeDateModule,
     MatTabsModule,
     MatCheckboxModule,
+    MatStepperModule,
+    AsyncPipe
 
   ]
 })

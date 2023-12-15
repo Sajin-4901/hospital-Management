@@ -9,9 +9,12 @@ export class HttpServiceService {
   apiUrl = environment.apiUrl;
   constructor(private http: HttpClient) { }
   post(url: any, data: any) {
-    const details = this.http.post('http://localhost:3000/v1/signin', data);
-    console.log(details);
+    const details = this.http.post('http://localhost:3000/v1/' + url, data);
     return details;
-
+  }
+  get(url: any) {
+    console.log('s2');
+    const details = this.http.get('http://localhost:3000/v1/' + url);
+    return details;
   }
 }

@@ -21,7 +21,6 @@ import { EndUserModule } from './end-user/end-user.module';
     BrowserAnimationsModule,
     MaterialModule,
     CoreModule,
-    MatButtonModule,
     HttpClientModule,
     EndUserModule
   ],

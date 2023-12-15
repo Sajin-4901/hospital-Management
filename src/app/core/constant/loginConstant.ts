@@ -1,15 +1,25 @@
 export class loginConstant {
     onSignup = {
-        text: "Setup Your Account!",
-        subtext: "We will send you a link for resetting your password to your registered email.",
+        text: "Setup ",
+        subtext: "Your Account!",
         button: 'Register'
     }
     onForgotPassword = {
-        text: "Forgot Your Password?",
-        subtext: "We will send you a link for resetting your password to your registered email.",
+        text: "Forgot",
+        subtext: " Your Password?",
         button: 'Reset Password'
     }
     navigationList = [
         { image: './assets/user-info.png', name: 'My Info' }
+    ]
+
+    gender = [
+        'Male',
+        'Female',
+        'Trans gender'
+    ]
+    maritalStatus = [
+        'Married',
+        'Un-married'
     ]
 }
