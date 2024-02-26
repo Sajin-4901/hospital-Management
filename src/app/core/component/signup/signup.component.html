@@ -37,12 +37,28 @@
         <mat-label fxFlex="40%" fxFlex.lt-md="100%">First Name</mat-label>
         <mat-form-field class="example-full-width" fxFlex="60%" fxFlex.lt-md="100%" appearance="outline">
           <input formControlName="firstName" matInput />
+          <mat-error *ngIf="employeeInfo?.get('firstName')?.errors && employeeInfo?.get('firstName')?.touched"
+          class="message-block">
+            <span class="mat-error-message mat-error-align"
+            *ngFor="let k of employeeInfo?.get('firstName')?.errors | keyvalue"
+            [attr.data-control]="'Error'">
+              {{ (errorMessages.ERROR)['name'][k.key] }}
+          </span><br>
+          </mat-error>
         </mat-form-field>
       </div>
       <div fxFlex="50%" fxFlex.lt-sm="100%" fxLayout="row" fxLayout.lt-md="column" class="form-field">
         <mat-label fxFlex="40%" fxFlex.lt-md="100%">Middle Name</mat-label>
         <mat-form-field fxFlex.lt-md="100%" class="example-full-width" fxFlex="60%" appearance="outline">
           <input formControlName="middleName" matInput />
+          <mat-error *ngIf="employeeInfo?.get('middleName')?.errors && employeeInfo?.get('middleName')?.touched"
+          class="message-block">
+            <span class="mat-error-message mat-error-align"
+            *ngFor="let k of employeeInfo?.get('middleName')?.errors | keyvalue"
+            [attr.data-control]="'Error'">
+              {{ (errorMessages.ERROR)['name'][k.key] }}
+          </span><br>
+          </mat-error>
         </mat-form-field>
       </div>
     </div>
@@ -58,6 +74,14 @@
         <mat-label fxFlex="40%" fxFlex.lt-md="100%">father Name</mat-label>
         <mat-form-field class="example-full-width" fxFlex="60%" fxFlex.lt-md="100%" appearance="outline">
           <input formControlName="fatherName" matInput />
+          <mat-error *ngIf="employeeInfo?.get('fatherName')?.errors && employeeInfo?.get('fatherName')?.touched"
+          class="message-block">
+            <span class="mat-error-message mat-error-align"
+            *ngFor="let k of employeeInfo?.get('fatherName')?.errors | keyvalue"
+            [attr.data-control]="'Error'">
+              {{ (errorMessages.ERROR)['name'][k.key] }}
+          </span><br>
+          </mat-error>
         </mat-form-field>
       </div>
     </div>
@@ -67,12 +91,28 @@
         <mat-label fxFlex="40%" fxFlex.lt-md="100%">Email</mat-label>
         <mat-form-field fxFlex.lt-md="100%" class="example-full-width" fxFlex="60%" appearance="outline">
           <input formControlName="email" matInput />
+          <mat-error *ngIf="employeeInfo?.get('email')?.errors && employeeInfo?.get('email')?.touched"
+          class="message-block">
+            <span class="mat-error-message mat-error-align"
+            *ngFor="let k of employeeInfo?.get('email')?.errors | keyvalue"
+            [attr.data-control]="'Error'">
+              {{ (errorMessages.ERROR)['email'][k.key] }}
+          </span><br>
+          </mat-error>
         </mat-form-field>
       </div>
       <div fxFlex="50%" fxFlex.lt-sm="100%" class="form-field" fxLayout="row" fxLayout.lt-md="column">
         <mat-label fxFlex="40%" fxFlex.lt-md="100%">Alternate Email</mat-label>
         <mat-form-field class="example-full-width" fxFlex="60%" fxFlex.lt-md="100%" appearance="outline">
           <input formControlName="alternateEmail" matInput />
+          <!-- <mat-error *ngIf="employeeInfo?.get('alternateEmail')?.errors && employeeInfo?.get('alternateEmail')?.touched"
+          class="message-block">
+            <span class="mat-error-message mat-error-align"
+            *ngFor="let k of employeeInfo?.get('alternateEmail')?.errors | keyvalue"
+            [attr.data-control]="'Error'">
+              {{ (errorMessages.ERROR)['email'][k.key] }}
+          </span><br>
+          </mat-error> -->
         </mat-form-field>
       </div>
     </div>
@@ -81,9 +121,17 @@
       <div fxFlex="50%" fxFlex.lt-sm="100%" fxLayout="row" fxLayout.lt-md="column" class="form-field">
         <mat-label fxFlex="40%" fxFlex.lt-md="100%">Date of Birth</mat-label>
         <mat-form-field fxFlex.lt-md="100%" class="example-full-width" fxFlex="60%" appearance="outline">
-          <input matInput formControlName="dateOfBirth" [matDatepicker]="picker">
+          <input matInput formControlName="dateOfBirth" [matDatepicker]="picker" [max]="currentDate">
           <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
           <mat-datepicker #picker></mat-datepicker>
+          <mat-error *ngIf="employeeInfo?.get('dateOfBirth')?.errors && employeeInfo?.get('dateOfBirth')?.touched"
+          class="message-block">
+            <span class="mat-error-message mat-error-align"
+            *ngFor="let k of employeeInfo?.get('dateOfBirth')?.errors | keyvalue"
+            [attr.data-control]="'Error'">
+              {{ (errorMessages.ERROR)['fieldRequired'][k.key] }}
+          </span><br>
+          </mat-error>
         </mat-form-field>
       </div>
       <div fxFlex="50%" fxFlex.lt-sm="100%" class="form-field" fxLayout="row" fxLayout.lt-md="column">
@@ -94,6 +142,14 @@
               {{gender}}
             </mat-option>
           </mat-select>
+          <mat-error *ngIf="employeeInfo?.get('gender')?.errors && employeeInfo?.get('gender')?.touched"
+          class="message-block">
+            <span class="mat-error-message mat-error-align"
+            *ngFor="let k of employeeInfo?.get('gender')?.errors | keyvalue"
+            [attr.data-control]="'Error'">
+              {{ (errorMessages.ERROR)['fieldRequired'][k.key] }}
+          </span><br>
+          </mat-error>
         </mat-form-field>
       </div>
     </div>
@@ -107,12 +163,28 @@
               {{item}}
             </mat-option>
           </mat-select>
+          <mat-error *ngIf="employeeInfo?.get('maritalStatus')?.errors && employeeInfo?.get('maritalStatus')?.touched"
+          class="message-block">
+            <span class="mat-error-message mat-error-align"
+            *ngFor="let k of employeeInfo?.get('maritalStatus')?.errors | keyvalue"
+            [attr.data-control]="'Error'">
+              {{ (errorMessages.ERROR)['fieldRequired'][k.key] }}
+          </span><br>
+          </mat-error>
         </mat-form-field>
       </div>
       <div fxFlex="50%" fxFlex.lt-sm="100%" class="form-field" fxLayout="row" fxLayout.lt-md="column">
         <mat-label fxFlex="40%" fxFlex.lt-md="100%">Work</mat-label>
         <mat-form-field class="example-full-width" fxFlex="60%" fxFlex.lt-md="100%" appearance="outline">
           <input formControlName="work" matInput />
+          <mat-error *ngIf="employeeInfo?.get('work')?.errors && employeeInfo?.get('work')?.touched"
+          class="message-block">
+            <span class="mat-error-message mat-error-align"
+            *ngFor="let k of employeeInfo?.get('work')?.errors | keyvalue"
+            [attr.data-control]="'Error'">
+              {{ (errorMessages.ERROR)['name'][k.key] }}
+          </span><br>
+          </mat-error>
         </mat-form-field>
       </div>
     </div>

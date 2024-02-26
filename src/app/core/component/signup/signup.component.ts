@@ -8,6 +8,8 @@ import { loginConstant } from '../../constant/loginConstant';
 import { CustomValidatorServiceService } from '../../service/custom-validator-service.service';
 import { ActivatedRoute } from '@angular/router';
 import { AuthServiceService } from '../../service/auth-service.service';
+import { commonConstant } from '../../constant/commonConstant';
+import { validateBasis } from 'ngx-flexible-layout';
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
@@ -22,13 +24,16 @@ export class SignupComponent {
   contactInfo!: UntypedFormGroup;
   createUser!: UntypedFormGroup;
   Countries: any;
+  errorMessages:any;
   isLoader = true;
   subscriptionObj: Subscription = new Subscription();
   sameAddress = false;
   loginConstant: loginConstant;
   presentAddstate: any;
+  currentDate = new Date();
   permanentAddstate: any;
   emergencyContactAddstate: any;
+  commonConstant:commonConstant;
   userId: any;
   constructor(
     private route: ActivatedRoute,
@@ -41,9 +46,11 @@ export class SignupComponent {
       .observe('(min-width: 800px)')
       .pipe(map(({ matches }) => (matches ? 'horizontal' : 'vertical')));
     this.loginConstant = new loginConstant();
+    this.commonConstant = new commonConstant();
   }
 
   ngOnInit() {
+    this.errorMessages = this.loginConstant.errorMessage;
     this.route.params.pipe(filter((res:any) => {
       if(res && res.id){
         console.log('cleareddd...');
@@ -66,57 +73,59 @@ export class SignupComponent {
   }
   formInitialization() {
     this.employeeInfo = new UntypedFormGroup({
-      fatherName: new UntypedFormControl(null, Validators.required),
-      firstName: new UntypedFormControl(null, Validators.required),
-      middleName: new UntypedFormControl(null, Validators.required),
-      lastName: new UntypedFormControl(null, Validators.required),
-      email: new UntypedFormControl(null, Validators.required),
-      alternateEmail: new UntypedFormControl(null, Validators.required),
+      fatherName: new UntypedFormControl(null,[ Validators.required ,Validators.pattern(this.commonConstant.pattern.acceptOnlyAlphabets),Validators.maxLength(100)]),
+      firstName: new UntypedFormControl(null,[ Validators.required ,Validators.pattern(this.commonConstant.pattern.acceptOnlyAlphabets),Validators.maxLength(100)]),
+      middleName: new UntypedFormControl(null,[ Validators.required ,Validators.pattern(this.commonConstant.pattern.acceptOnlyAlphabets),Validators.maxLength(100)]),
+      lastName: new UntypedFormControl(null),
+      email: new UntypedFormControl(null, [ Validators.required ,Validators.email]),
+      alternateEmail: new UntypedFormControl(null),
       dateOfBirth: new UntypedFormControl(null, Validators.required),
       gender: new UntypedFormControl(null, Validators.required),
       maritalStatus: new UntypedFormControl(null, Validators.required),
-      work: new UntypedFormControl(null, Validators.required),
+      work: new UntypedFormControl(null, [ Validators.required ,Validators.pattern(this.commonConstant.pattern.acceptOnlyAlphabets),Validators.maxLength(100)]),
     });
     this.contactInfo = new UntypedFormGroup({
       presentAddress: new UntypedFormGroup({
-        addressLine1: new UntypedFormControl(null, Validators.required),
-        addressLine2: new UntypedFormControl(null, Validators.required),
-        mobileNumber: new UntypedFormControl(null, Validators.required),
-        homePhoneNumber: new UntypedFormControl(null, Validators.required),
-        city: new UntypedFormControl(null, Validators.required),
+        addressLine1: new UntypedFormControl(null, [ Validators.required ,Validators.pattern(this.commonConstant.pattern.addressValidationPattern),Validators.maxLength(100)]),
+        addressLine2: new UntypedFormControl(null, [ Validators.required ,Validators.pattern(this.commonConstant.pattern.addressValidationPattern),Validators.maxLength(100)]),
+        mobileNumber: new UntypedFormControl(null, [ Validators.required ,Validators.pattern(this.commonConstant.pattern.phoneNumberPattern),Validators.maxLength(100)]),
+        homePhoneNumber: new UntypedFormControl(null,[ Validators.required ,Validators.pattern(this.commonConstant.pattern.phoneNumberPattern)]),
+        city: new UntypedFormControl(null,[ Validators.required ,Validators.pattern(this.commonConstant.pattern.acceptOnlyAlphabets),Validators.maxLength(100)]),
         country: new UntypedFormControl(null, Validators.required),
         state: new UntypedFormControl(null, Validators.required),
-        zipCode: new UntypedFormControl(null, Validators.required),
+        zipCode: new UntypedFormControl(null, [ Validators.required ,Validators.pattern(this.commonConstant.pattern.zipcodeValidationPattern)]),
       }),
       permanentAddress: new UntypedFormGroup({
         addressSame: new UntypedFormControl(false),
-        addressLine1: new UntypedFormControl(null, Validators.required),
-        addressLine2: new UntypedFormControl(null, Validators.required),
-        mobileNumber: new UntypedFormControl(null, Validators.required),
-        homePhoneNumber: new UntypedFormControl(null, Validators.required),
-        city: new UntypedFormControl(null, Validators.required),
+        addressLine1: new UntypedFormControl(null, [ Validators.required ,Validators.pattern(this.commonConstant.pattern.addressValidationPattern),Validators.maxLength(100)]),
+        addressLine2: new UntypedFormControl(null, [ Validators.required ,Validators.pattern(this.commonConstant.pattern.addressValidationPattern),Validators.maxLength(100)]),
+        mobileNumber: new UntypedFormControl(null, [ Validators.required ,Validators.pattern(this.commonConstant.pattern.phoneNumberPattern),Validators.maxLength(100)]),
+        homePhoneNumber: new UntypedFormControl(null,[ Validators.required ,Validators.pattern(this.commonConstant.pattern.phoneNumberPattern)]),
+        city: new UntypedFormControl(null,[ Validators.required ,Validators.pattern(this.commonConstant.pattern.acceptOnlyAlphabets),Validators.maxLength(100)]),
         country: new UntypedFormControl(null, Validators.required),
         state: new UntypedFormControl(null, Validators.required),
-        zipCode: new UntypedFormControl(null, Validators.required),
+        zipCode: new UntypedFormControl(null, [ Validators.required ,Validators.pattern(this.commonConstant.pattern.zipcodeValidationPattern)]),
       }),
       emergencyContact: new UntypedFormGroup({
-        contactName: new UntypedFormControl(null, Validators.required),
-        relationship: new UntypedFormControl(null, Validators.required),
-        addressLine1: new UntypedFormControl(null, Validators.required),
-        addressLine2: new UntypedFormControl(null, Validators.required),
-        mobileNumber: new UntypedFormControl(null, Validators.required),
-        homePhoneNumber: new UntypedFormControl(null, Validators.required),
-        city: new UntypedFormControl(null, Validators.required),
+        contactName: new UntypedFormControl(null, [ Validators.required ,Validators.pattern(this.commonConstant.pattern.acceptOnlyAlphabets)]),
+        relationship: new UntypedFormControl(null,[ Validators.required ,Validators.pattern(this.commonConstant.pattern.acceptOnlyAlphabets)]),
+        addressLine1: new UntypedFormControl(null, [ Validators.required ,Validators.pattern(this.commonConstant.pattern.addressValidationPattern),Validators.maxLength(100)]),
+        addressLine2: new UntypedFormControl(null, [ Validators.required ,Validators.pattern(this.commonConstant.pattern.addressValidationPattern),Validators.maxLength(100)]),
+        mobileNumber: new UntypedFormControl(null, [ Validators.required ,Validators.pattern(this.commonConstant.pattern.phoneNumberPattern),Validators.maxLength(100)]),
+        homePhoneNumber: new UntypedFormControl(null,[ Validators.required ,Validators.pattern(this.commonConstant.pattern.phoneNumberPattern)]),
+        city: new UntypedFormControl(null,[ Validators.required ,Validators.pattern(this.commonConstant.pattern.acceptOnlyAlphabets),Validators.maxLength(100)]),
         country: new UntypedFormControl(null, Validators.required),
         state: new UntypedFormControl(null, Validators.required),
-        zipCode: new UntypedFormControl(null, Validators.required),
-      })
+        zipCode: new UntypedFormControl(null, [ Validators.required ,Validators.pattern(this.commonConstant.pattern.zipcodeValidationPattern)]),
+
+     })
     })
     this.createUser = new UntypedFormGroup({
-      userId: new UntypedFormControl(this.userId ?? null,Validators.required),
-      password:new UntypedFormControl(null,Validators.required),
-      reenterPassword:new UntypedFormControl(null, Validators.required)
+      userId: new UntypedFormControl(this.userId ?? null,[ Validators.required ,Validators.email]),
+      password:new UntypedFormControl(null,[Validators.required,Validators.pattern(this.commonConstant.pattern.passwordValidationPattern)]),
+      reenterPassword:new UntypedFormControl(null, [Validators.required,Validators.pattern(this.commonConstant.pattern.passwordValidationPattern)])
     })
+    console.log('form :',this.employeeInfo);
   }
 
 
@@ -150,13 +159,21 @@ export class SignupComponent {
       }
     }
     if (contact && !this.sameAddress) {
-      for (const controlName of Object.keys(contact.controls)) {
-        if (controlName !== 'addressSame') {
-          const control = contact?.get(controlName);
-          control?.setValidators(Validators.required);
-        }
-      }
-    }
+      // for (const controlName of Object.keys(contact.controls)) {
+      //   if (controlName !== 'addressSame') {
+      //     const control = contact?.get(controlName);
+      //     control?.setValidators(Validators.required);
+      //   }
+      // }
+      contact.get('addressLine1')?.setValidators([ Validators.required ,Validators.pattern(this.commonConstant.pattern.addressValidationPattern),Validators.maxLength(100)]);
+      contact.get('addressLine2')?.setValidators([ Validators.required ,Validators.pattern(this.commonConstant.pattern.addressValidationPattern),Validators.maxLength(100)]);
+      contact.get('mobileNumber')?.setValidators([ Validators.required ,Validators.pattern(this.commonConstant.pattern.phoneNumberPattern),Validators.maxLength(100)]);
+      contact.get('homePhoneNumber')?.setValidators([ Validators.required ,Validators.pattern(this.commonConstant.pattern.phoneNumberPattern)]);
+      contact.get('city')?.setValidators([ Validators.required ,Validators.pattern(this.commonConstant.pattern.acceptOnlyAlphabets),Validators.maxLength(100)]);
+      contact.get('country')?.setValidators(Validators.required);
+      contact.get('state')?.setValidators(Validators.required);
+      contact.get('zipCode')?.setValidators([ Validators.required ,Validators.pattern(this.commonConstant.pattern.zipcodeValidationPattern)]);
+       }
     for (const controlName of Object.keys(contact.controls)) {
       if (controlName !== 'addressSame') {
         const control = contact?.get(controlName);
@@ -164,6 +181,11 @@ export class SignupComponent {
       }
     }
     console.log('contact :', contact)
+  }
+
+  getType(k: any): string{
+    console.log(k);
+    return k.key;
   }
 
 }

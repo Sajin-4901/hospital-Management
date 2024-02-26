@@ -15,3 +15,10 @@ body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
+.message-block .mat-error-message {
+  display: none;
+}
+
+.message-block .mat-error-message:first-child {
+  display: block;
+}

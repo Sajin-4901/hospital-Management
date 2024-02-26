@@ -22,4 +22,20 @@ export class loginConstant {
         'Married',
         'Un-married'
     ]
+    errorMessage = {
+    "ERROR" : {
+        "name" : { 
+            "required":"This field is required.",
+            "pattern":"This field must contain alphabet.",
+            "maxLength":"This field must contain the maximum of 100 characters."
+        },
+        "email": {
+            "required":"This field is required.",
+            "email":"Enter the valid Email"
+        },
+        "fieldRequired" : {
+            "required":"This field is required."
+        }
+    }
+}
 }
