@@ -6,6 +6,11 @@ const loginTable = require('../models').login;
 const bcrypt = require('bcrypt');
 const mailService = require('./sendmain.service');
 const cryptoService = require('./crypto.service');
+const emergencyContactTable =  require('../models').emergencyContact;
+const permanentAddressTable =  require('../models').permanentAddress;
+const presentAddressTable =  require('../models').presentAddress;
+const userInfoTable =  require('../models').userInfo;
+// const loginTable =  require('../models').login;
 
 
 
@@ -64,7 +69,7 @@ const signup = async function (body) {
       if (encryptEmail) {
         console.log('encjkj---->', encryptEmail);
         [err, sendmail] = await to(mailService.sendMail(body.email,
-          '<h3>Hello Sir/Madam,</h3><br><h3>Tap this link to register yourself.</h3><br><a href="http://localhost:55868/signupform/' + encryptEmail + '">link</a>', "ZENYO MANAGEMENT - Signup"));
+          '<h3>Hello Sir/Madam,</h3><br><h3>Tap this link to register yourself.</h3><br><a href="http://localhost:5000/signupform/' + encryptEmail + '">link</a>', "ZENYO MANAGEMENT - Signup"));
         if (err) return TE(err);
         if (sendmail) return sendmail;
       }
@@ -76,3 +81,75 @@ const signup = async function (body) {
   }
 }
 module.exports.signup = signup
+
+
+const signupRegistration = async function(body){
+  let err,err1,err2,err3,err4,err5;
+  let loginDetails = {};
+  let userInfo = {};
+  let presentAddress = {};
+  let permanentAddress = {};
+  let emergencyContact = {};
+  console.log('bodyyyyyyyyy',body);
+
+  [err,loginDetails] = await to(loginTable.create(body.createUser));
+  console.log('error :',err);
+  if(err) return TE(err)
+  if(loginDetails){
+    console.log('loginDetails :',loginDetails);
+    body.employeeInfo['loginId'] = loginDetails.id;
+    [err2,userInfo] = await to(userInfoTable.create(body.employeeInfo));
+    if(err2) return TE(err2.message);
+    body.contactInfo.presentAddress['loginId'] = loginDetails.id;
+    [err3,presentAddress] = await to(presentAddressTable.create(body.contactInfo.presentAddress))
+    if(err3) return TE(err3.message);
+    if(body.contactInfo.permanentAddress.addressSame){
+      body.contactInfo.presentAddress['addressSame']=true;
+      [err1,permanentAddress] = await to(permanentAddressTable.create(body.contactInfo.presentAddress));
+      if(err1) return TE(err1.message);
+    }else{
+      body.contactInfo.permanentAddress['loginId'] = loginDetails.id;
+      [err4,permanentAddress] = await to(permanentAddressTable.create(body.contactInfo.permanentAddress))
+      if(err4) return TE(err4.message);
+    }
+    body.contactInfo.emergencyContact['loginId'] = loginDetails.id;
+    [err5,emergencyContact] = await to(emergencyContactTable.create(body.contactInfo.emergencyContact))
+    if(err5) return TE(err5.message);
+  }
+  return {message : "Updated Successfully.."}
+}
+module.exports.signupRegistration = signupRegistration;
+
+
+const emailExistsCheck = async function(body) {
+  let err,user;
+  [err,user] = await to(loginTable.findOne({
+    where : {
+      email: body.email
+    }
+  }))
+  if(user) return {alreadyExist:true};
+  if(!user) return {alreadyExist:false};
+  if(err) return TE(err.message);
+}
+module.exports.emailExistsCheck = emailExistsCheck;
+
+
+const forgotpasswordEmailCheck = async function(body) {
+  let err,user;
+  [err,user] = await to(loginTable.findOne({
+    where : {
+      email: body.email
+    }
+  }))
+  if(user) return {emailNotExist:false};
+  if(!user) return {emailNotExist:true};
+  if(err) return TE(err.message);
+}
+module.exports.forgotpasswordEmailCheck = forgotpasswordEmailCheck;
+
+const getEmployeeInfo = async function(body){
+  let err,employee;
+  [err,employee] = await to(log)
+}
+module.exports.getEmployeeInfo = getEmployeeInfo;

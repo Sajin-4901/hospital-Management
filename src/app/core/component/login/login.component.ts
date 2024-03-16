@@ -53,7 +53,9 @@ export class LoginComponent {
       this.customValidatorService.signin(data).subscribe((res: any) => {
         if (res && res.user && res.token && res.refreshToken) {
           this.authService.setToken(res);
-          this.router.navigate(['/app/empinfo'])
+          const encryptedEmail = this.authService.encrypt(this.loginForm.value.email);
+          console.log('email encrypt :',typeof(encryptedEmail));
+          this.router.navigate(['/app/empinfo',  encryptedEmail ] )
         }
       }
         , (err) => {

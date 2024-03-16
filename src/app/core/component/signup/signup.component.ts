@@ -23,6 +23,7 @@ export class SignupComponent {
   employeeInfo!: UntypedFormGroup;
   contactInfo!: UntypedFormGroup;
   createUser!: UntypedFormGroup;
+  signupData:any = {};
   Countries: any;
   errorMessages:any;
   isLoader = true;
@@ -53,7 +54,7 @@ export class SignupComponent {
     this.errorMessages = this.loginConstant.errorMessage;
     this.route.params.pipe(filter((res:any) => {
       if(res && res.id){
-        console.log('cleareddd...');
+        console.log('cleareddd...',res.id);
       }
         return res.id !==null;
     })).subscribe((response:any) => {
@@ -88,8 +89,8 @@ export class SignupComponent {
       presentAddress: new UntypedFormGroup({
         addressLine1: new UntypedFormControl(null, [ Validators.required ,Validators.pattern(this.commonConstant.pattern.addressValidationPattern),Validators.maxLength(100)]),
         addressLine2: new UntypedFormControl(null, [ Validators.required ,Validators.pattern(this.commonConstant.pattern.addressValidationPattern),Validators.maxLength(100)]),
-        mobileNumber: new UntypedFormControl(null, [ Validators.required ,Validators.pattern(this.commonConstant.pattern.phoneNumberPattern),Validators.maxLength(100)]),
-        homePhoneNumber: new UntypedFormControl(null,[ Validators.required ,Validators.pattern(this.commonConstant.pattern.phoneNumberPattern)]),
+        mobileNumber: new UntypedFormControl(null, [ Validators.required ,Validators.pattern(this.commonConstant.pattern.phoneNumberPattern),Validators.maxLength(10)]),
+        homePhoneNumber: new UntypedFormControl(null,Validators.pattern(this.commonConstant.pattern.phoneNumberPattern)),
         city: new UntypedFormControl(null,[ Validators.required ,Validators.pattern(this.commonConstant.pattern.acceptOnlyAlphabets),Validators.maxLength(100)]),
         country: new UntypedFormControl(null, Validators.required),
         state: new UntypedFormControl(null, Validators.required),
@@ -99,8 +100,8 @@ export class SignupComponent {
         addressSame: new UntypedFormControl(false),
         addressLine1: new UntypedFormControl(null, [ Validators.required ,Validators.pattern(this.commonConstant.pattern.addressValidationPattern),Validators.maxLength(100)]),
         addressLine2: new UntypedFormControl(null, [ Validators.required ,Validators.pattern(this.commonConstant.pattern.addressValidationPattern),Validators.maxLength(100)]),
-        mobileNumber: new UntypedFormControl(null, [ Validators.required ,Validators.pattern(this.commonConstant.pattern.phoneNumberPattern),Validators.maxLength(100)]),
-        homePhoneNumber: new UntypedFormControl(null,[ Validators.required ,Validators.pattern(this.commonConstant.pattern.phoneNumberPattern)]),
+        mobileNumber: new UntypedFormControl(null, [ Validators.required ,Validators.pattern(this.commonConstant.pattern.phoneNumberPattern),Validators.maxLength(10)]),
+        homePhoneNumber: new UntypedFormControl(null,Validators.pattern(this.commonConstant.pattern.phoneNumberPattern)),
         city: new UntypedFormControl(null,[ Validators.required ,Validators.pattern(this.commonConstant.pattern.acceptOnlyAlphabets),Validators.maxLength(100)]),
         country: new UntypedFormControl(null, Validators.required),
         state: new UntypedFormControl(null, Validators.required),
@@ -112,7 +113,7 @@ export class SignupComponent {
         addressLine1: new UntypedFormControl(null, [ Validators.required ,Validators.pattern(this.commonConstant.pattern.addressValidationPattern),Validators.maxLength(100)]),
         addressLine2: new UntypedFormControl(null, [ Validators.required ,Validators.pattern(this.commonConstant.pattern.addressValidationPattern),Validators.maxLength(100)]),
         mobileNumber: new UntypedFormControl(null, [ Validators.required ,Validators.pattern(this.commonConstant.pattern.phoneNumberPattern),Validators.maxLength(100)]),
-        homePhoneNumber: new UntypedFormControl(null,[ Validators.required ,Validators.pattern(this.commonConstant.pattern.phoneNumberPattern)]),
+        homePhoneNumber: new UntypedFormControl(null,Validators.pattern(this.commonConstant.pattern.phoneNumberPattern)),
         city: new UntypedFormControl(null,[ Validators.required ,Validators.pattern(this.commonConstant.pattern.acceptOnlyAlphabets),Validators.maxLength(100)]),
         country: new UntypedFormControl(null, Validators.required),
         state: new UntypedFormControl(null, Validators.required),
@@ -121,7 +122,7 @@ export class SignupComponent {
      })
     })
     this.createUser = new UntypedFormGroup({
-      userId: new UntypedFormControl(this.userId ?? null,[ Validators.required ,Validators.email]),
+      email: new UntypedFormControl(this.userId ?? null,[ Validators.required ,Validators.email]),
       password:new UntypedFormControl(null,[Validators.required,Validators.pattern(this.commonConstant.pattern.passwordValidationPattern)]),
       reenterPassword:new UntypedFormControl(null, [Validators.required,Validators.pattern(this.commonConstant.pattern.passwordValidationPattern)])
     })
@@ -131,9 +132,14 @@ export class SignupComponent {
 
   getState(event: any, address: any) {
     // this.isLoader = true;
-    event = { stateCode: event.value.iso2 };
-    console.log('event :', event);
-    this.customValidatorService.getState(event).subscribe((res: any) => {
+    // let sc 
+    // console.log('event1 :',event);
+    // event = { stateCode: event.value.iso2 };
+    // console.log('event :', event);
+    // if (address == 'presentAddress'){
+    //   sc = this.contactInfo?.get('presentAddress')?.get('country')?.value;
+    // }
+    this.customValidatorService.getState( { stateCode: event.value }).subscribe((res: any) => {
       if (res && res.success) {
         console.log('state :', res);
         if (address == 'presentAddress') this.presentAddstate = res.results;
@@ -167,8 +173,8 @@ export class SignupComponent {
       // }
       contact.get('addressLine1')?.setValidators([ Validators.required ,Validators.pattern(this.commonConstant.pattern.addressValidationPattern),Validators.maxLength(100)]);
       contact.get('addressLine2')?.setValidators([ Validators.required ,Validators.pattern(this.commonConstant.pattern.addressValidationPattern),Validators.maxLength(100)]);
-      contact.get('mobileNumber')?.setValidators([ Validators.required ,Validators.pattern(this.commonConstant.pattern.phoneNumberPattern),Validators.maxLength(100)]);
-      contact.get('homePhoneNumber')?.setValidators([ Validators.required ,Validators.pattern(this.commonConstant.pattern.phoneNumberPattern)]);
+      contact.get('mobileNumber')?.setValidators([ Validators.required ,Validators.pattern(this.commonConstant.pattern.phoneNumberPattern),Validators.maxLength(10)]);
+      contact.get('homePhoneNumber')?.setValidators(Validators.pattern(this.commonConstant.pattern.phoneNumberPattern));
       contact.get('city')?.setValidators([ Validators.required ,Validators.pattern(this.commonConstant.pattern.acceptOnlyAlphabets),Validators.maxLength(100)]);
       contact.get('country')?.setValidators(Validators.required);
       contact.get('state')?.setValidators(Validators.required);
@@ -183,9 +189,18 @@ export class SignupComponent {
     console.log('contact :', contact)
   }
 
-  getType(k: any): string{
-    console.log(k);
-    return k.key;
+  onSignup(){
+    // if(this.employeeInfo?.valid && this.contactInfo?.valid && this.createUser?.valid && (this.createUser.value.password == this.createUser.value.reenterPassword)){
+      
+    // }
+    this.signupData['employeeInfo'] = this.employeeInfo?.value;
+    this.signupData['contactInfo'] = this.contactInfo?.value;
+    this.signupData['createUser'] = this.createUser?.value;
+    console.log('this.signupdata : ',this.signupData);
+    this.customValidatorService.signupRegistration(this.signupData).subscribe((res:any) => {
+      console.log('response :',res);
+    })
+
   }
 
 }

@@ -1,44 +1,40 @@
 
 module.exports = (sequelize, DataTypes) => {
-  const Model = sequelize.define('userInfo', {
+  const Model = sequelize.define('presentAddress', {
     id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
       autoIncrement: true,
     },
-    firstName: {
+    addressLine1: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    middleName: {
+    addressLine2: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    lastName: {
+    city: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    country: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    state: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    zipCode: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    homePhoneNumber: {
       type: DataTypes.STRING,
       allowNull: true,
     },
-    email: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    alternateEmail: {
-      type: DataTypes.STRING,
-      allowNull: true,
-    },
-    dateOfBirth: {
-      type: DataTypes.DATE,
-      allowNull: false,
-    },
-    gender: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    maritalStatus: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    work: {
+    mobileNumber: {
       type: DataTypes.STRING,
       allowNull: false,
     },
@@ -53,7 +49,7 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false
     }
   }, {
-    tableName: 'userInfo', schema: 'hospitalManagement'
+    tableName: 'presentAddress', schema: 'hospitalManagement'
   });
   Model.association = (models) => {
     Model.belongsTo(models.login, { foreignKey: 'loginId' });

@@ -16,7 +16,7 @@ const routes: Routes = [
 
   {
     path: 'app', component: NavbarComponent, children: [
-      { path: 'empinfo', component: EmployeeInfoComponent },
+      { path: 'empinfo/:id', component: EmployeeInfoComponent },
       { path: 'emplist', component: EmpListComponent }
     ]
   },

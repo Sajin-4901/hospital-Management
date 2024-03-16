@@ -15,6 +15,10 @@ router.post('/getState', generalInfo.getAllState);
 router.post('/putCountry', generalInfo.addCountry);
 router.post('/signup', login.onSignUp);
 router.post('/decrypt', login.decrypt);
+router.post('/signupRegistration', login.signupRegistration);
+router.post('/emailExist', login.emailExistsCheck);
+router.post('/forgotpasswordEmailCheck', login.forgotpasswordEmailCheck);
+router.post('/getEmployeeInfo', login.getEmployeeInfo);
 
 
 

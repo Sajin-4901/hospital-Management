@@ -31,6 +31,39 @@ const onSignUp = async function (req, res) {
 }
 module.exports.onSignUp = onSignUp;
 
+
+const signupRegistration = async function (req,res) {
+  let body = req && req.body;
+  [err,data] = await to(loginservice.signupRegistration(body));
+  if (err) return ReE(res, err, 422);
+  if (data) return ReS(res, data, 200);
+}
+module.exports.signupRegistration = signupRegistration;
+
+const emailExistsCheck = async function (req,res) {
+  let body = req && req.body;
+  [err,data] = await to(loginservice.emailExistsCheck(body));
+  if (err) return ReE(res, err, 422);
+  if (data) return ReS(res, data, 200);
+}
+module.exports.emailExistsCheck = emailExistsCheck;
+
+const forgotpasswordEmailCheck = async function (req,res) {
+  let body = req && req.body;
+  [err,data] = await to(loginservice.forgotpasswordEmailCheck(body));
+  if (err) return ReE(res, err, 422);
+  if (data) return ReS(res, data, 200);
+}
+module.exports.forgotpasswordEmailCheck = forgotpasswordEmailCheck;
+
+const getEmployeeInfo = async function (req,res) {
+  let body = req && req.body;
+  [err,data] = await to(loginservice.getEmployeeInfo(body));
+  if (err) return ReE(res, err, 422);
+  if (data) return ReS(res, data, 200);
+}
+module.exports.getEmployeeInfo = getEmployeeInfo; 
+
 const decrypt = async function (req, res) {
   let body = req && req.body;
   console.log('body :',body);

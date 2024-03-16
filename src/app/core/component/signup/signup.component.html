@@ -13,7 +13,7 @@
         <ng-container [ngTemplateOutlet]="CONTACTINFO">
         </ng-container>
         <div>
-          <button style="padding: 20px;" mat-button matStepperPrevious mat-raised-button color="warn">Back</button>
+          <button style="padding: 20px;margin: 20px;" mat-button matStepperPrevious mat-raised-button color="warn">Back</button>
           <button style="padding: 20px;" mat-raised-button color="primary" matStepperNext>Next</button>
         </div>
       </mat-step>
@@ -22,7 +22,7 @@
         <ng-container [ngTemplateOutlet]="SETTINGPASSWORD">
         </ng-container>
         <div fxLayoutAlign="center center">
-          <button mat-raised-button color="primary">Submit</button>
+          <button mat-raised-button color="primary" (click)="onSignup()">Submit</button>
         </div>
       </mat-step>
     </mat-stepper>
@@ -203,12 +203,28 @@
           <mat-label fxFlex="40%" fxFlex.lt-md="100%">Address Line 1</mat-label>
           <mat-form-field fxFlex.lt-md="100%" class="example-full-width" fxFlex="60%" appearance="outline">
             <input formControlName="addressLine1" matInput />
+            <mat-error *ngIf="contactInfo?.get('presentAddress')?.get('addressLine1')?.errors && contactInfo?.get('presentAddress')?.get('addressLine1')?.touched"
+            class="message-block">
+              <span class="mat-error-message mat-error-align"
+              *ngFor="let k of contactInfo?.get('presentAddress')?.get('addressLine1')?.errors | keyvalue"
+              [attr.data-control]="'Error'">
+                {{ (errorMessages.ERROR)['addressError'][k.key] }}
+            </span><br>
+            </mat-error>
           </mat-form-field>
         </div>
         <div fxFlex="50%" fxFlex.lt-sm="100%" class="form-field" fxLayout="row" fxLayout.lt-md="column">
           <mat-label fxFlex="40%" fxFlex.lt-md="100%">Address Line 2</mat-label>
           <mat-form-field class="example-full-width" fxFlex="60%" fxFlex.lt-md="100%" appearance="outline">
             <input formControlName="addressLine2" matInput />
+            <mat-error *ngIf="contactInfo?.get('presentAddress')?.get('addressLine2')?.errors && contactInfo?.get('presentAddress')?.get('addressLine2')?.touched"
+            class="message-block">
+              <span class="mat-error-message mat-error-align"
+              *ngFor="let k of contactInfo?.get('presentAddress')?.get('addressLine2')?.errors | keyvalue"
+              [attr.data-control]="'Error'">
+                {{ (errorMessages.ERROR)['addressError'][k.key] }}
+            </span><br>
+            </mat-error>
           </mat-form-field>
         </div>
       </div>
@@ -219,16 +235,32 @@
           <mat-label fxFlex="40%" fxFlex.lt-md="100%">City</mat-label>
           <mat-form-field class="example-full-width" fxFlex="60%" fxFlex.lt-md="100%" appearance="outline">
             <input formControlName="city" matInput />
+            <mat-error *ngIf="contactInfo?.get('presentAddress')?.get('city')?.errors && contactInfo?.get('presentAddress')?.get('city')?.touched"
+            class="message-block">
+              <span class="mat-error-message mat-error-align"
+              *ngFor="let k of contactInfo?.get('presentAddress')?.get('city')?.errors | keyvalue"
+              [attr.data-control]="'Error'">
+                {{ (errorMessages.ERROR)['name'][k.key] }}
+            </span><br>
+            </mat-error>
           </mat-form-field>
         </div>
         <div fxFlex="50%" fxFlex.lt-sm="100%" fxLayout="row" fxLayout.lt-md="column" class="form-field">
           <mat-label fxFlex="40%" fxFlex.lt-md="100%">Country</mat-label>
           <mat-form-field fxFlex.lt-md="100%" class="example-full-width" fxFlex="60%" appearance="outline">
             <mat-select formControlName="country" (selectionChange)="getState($event , 'presentAddress')">
-              <mat-option *ngFor="let item of Countries" [value]="item">
+              <mat-option *ngFor="let item of Countries" [value]="item?.iso2">
                 {{item?.name}}
               </mat-option>
             </mat-select>
+            <mat-error *ngIf="contactInfo?.get('presentAddress')?.get('country')?.errors && contactInfo?.get('presentAddress')?.get('country')?.touched"
+            class="message-block">
+              <span class="mat-error-message mat-error-align"
+              *ngFor="let k of contactInfo?.get('presentAddress')?.get('country')?.errors | keyvalue"
+              [attr.data-control]="'Error'">
+                {{ (errorMessages.ERROR)['fieldRequired'][k.key] }}
+            </span><br>
+            </mat-error>
           </mat-form-field>
         </div>
       </div>
@@ -238,16 +270,32 @@
           <mat-label fxFlex="40%" fxFlex.lt-md="100%">State</mat-label>
           <mat-form-field fxFlex.lt-md="100%" class="example-full-width" fxFlex="60%" appearance="outline">
             <mat-select formControlName="state">
-              <mat-option *ngFor="let item of presentAddstate" [value]="item">
+              <mat-option *ngFor="let item of presentAddstate" [value]="item?.name">
                 {{item?.name}}
               </mat-option>
             </mat-select>
+            <mat-error *ngIf="contactInfo?.get('presentAddress')?.get('state')?.errors && contactInfo?.get('presentAddress')?.get('state')?.touched"
+            class="message-block">
+              <span class="mat-error-message mat-error-align"
+              *ngFor="let k of contactInfo?.get('presentAddress')?.get('state')?.errors | keyvalue"
+              [attr.data-control]="'Error'">
+                {{ (errorMessages.ERROR)['fieldRequired'][k.key] }}
+            </span><br>
+            </mat-error>
           </mat-form-field>
         </div>
         <div fxFlex="50%" fxFlex.lt-sm="100%" fxLayout="row" fxLayout.lt-md="column" class="form-field">
           <mat-label fxFlex="40%" fxFlex.lt-md="100%">Zip Code</mat-label>
           <mat-form-field fxFlex.lt-md="100%" class="example-full-width" fxFlex="60%" appearance="outline">
             <input formControlName="zipCode" matInput />
+            <mat-error *ngIf="contactInfo?.get('presentAddress')?.get('zipCode')?.errors && contactInfo?.get('presentAddress')?.get('zipCode')?.touched"
+            class="message-block">
+              <span class="mat-error-message mat-error-align"
+              *ngFor="let k of contactInfo?.get('presentAddress')?.get('zipCode')?.errors | keyvalue"
+              [attr.data-control]="'Error'">
+                {{ (errorMessages.ERROR)['zipCodeValidation'][k.key] }}
+            </span><br>
+            </mat-error>
           </mat-form-field>
         </div>
       </div>
@@ -257,12 +305,28 @@
           <mat-label fxFlex="40%" fxFlex.lt-md="100%">mobile Number</mat-label>
           <mat-form-field fxFlex.lt-md="100%" class="example-full-width" fxFlex="60%" appearance="outline">
             <input formControlName="mobileNumber" matInput />
+            <mat-error *ngIf="contactInfo?.get('presentAddress')?.get('mobileNumber')?.errors && contactInfo?.get('presentAddress')?.get('mobileNumber')?.touched"
+            class="message-block">
+              <span class="mat-error-message mat-error-align"
+              *ngFor="let k of contactInfo?.get('presentAddress')?.get('mobileNumber')?.errors | keyvalue"
+              [attr.data-control]="'Error'">
+                {{ (errorMessages.ERROR)['phoneNumberError'][k.key] }}
+            </span><br>
+            </mat-error>
           </mat-form-field>
         </div>
         <div fxFlex="50%" fxFlex.lt-sm="100%" fxLayout="row" fxLayout.lt-md="column" class="form-field">
           <mat-label fxFlex="40%" fxFlex.lt-md="100%">Home Phone Number</mat-label>
           <mat-form-field fxFlex.lt-md="100%" class="example-full-width" fxFlex="60%" appearance="outline">
             <input formControlName="homePhoneNumber" matInput />
+            <mat-error *ngIf="contactInfo?.get('presentAddress')?.get('homePhoneNumber')?.errors && contactInfo?.get('presentAddress')?.get('homePhoneNumber')?.touched"
+            class="message-block">
+              <span class="mat-error-message mat-error-align"
+              *ngFor="let k of contactInfo?.get('presentAddress')?.get('homePhoneNumber')?.errors | keyvalue"
+              [attr.data-control]="'Error'">
+                {{ (errorMessages.ERROR)['phoneNumberError'][k.key] }}
+            </span><br>
+            </mat-error>
           </mat-form-field>
         </div>
       </div>
@@ -279,12 +343,28 @@
             <mat-label fxFlex="40%" fxFlex.lt-md="100%">Address Line 1</mat-label>
             <mat-form-field fxFlex.lt-md="100%" class="example-full-width" fxFlex="60%" appearance="outline">
               <input formControlName="addressLine1" matInput />
+              <mat-error *ngIf="contactInfo?.get('permanentAddress')?.get('addressLine1')?.errors && contactInfo?.get('permanentAddress')?.get('addressLine1')?.touched"
+              class="message-block">
+                <span class="mat-error-message mat-error-align"
+                *ngFor="let k of contactInfo?.get('permanentAddress')?.get('addressLine1')?.errors | keyvalue"
+                [attr.data-control]="'Error'">
+                  {{ (errorMessages.ERROR)['addressError'][k.key] }}
+              </span><br>
+              </mat-error>
             </mat-form-field>
           </div>
           <div fxFlex="50%" fxFlex.lt-sm="100%" class="form-field" fxLayout="row" fxLayout.lt-md="column">
             <mat-label fxFlex="40%" fxFlex.lt-md="100%">Address Line 2</mat-label>
             <mat-form-field class="example-full-width" fxFlex="60%" fxFlex.lt-md="100%" appearance="outline">
               <input formControlName="addressLine2" matInput />
+              <mat-error *ngIf="contactInfo?.get('permanentAddress')?.get('addressLine2')?.errors && contactInfo?.get('permanentAddress')?.get('addressLine2')?.touched"
+              class="message-block">
+                <span class="mat-error-message mat-error-align"
+                *ngFor="let k of contactInfo?.get('permanentAddress')?.get('addressLine2')?.errors | keyvalue"
+                [attr.data-control]="'Error'">
+                  {{ (errorMessages.ERROR)['addressError'][k.key] }}
+              </span><br>
+              </mat-error>
             </mat-form-field>
           </div>
         </div>
@@ -295,16 +375,32 @@
             <mat-label fxFlex="40%" fxFlex.lt-md="100%">City</mat-label>
             <mat-form-field class="example-full-width" fxFlex="60%" fxFlex.lt-md="100%" appearance="outline">
               <input formControlName="city" matInput />
+              <mat-error *ngIf="contactInfo?.get('permanentAddress')?.get('city')?.errors && contactInfo?.get('permanentAddress')?.get('city')?.touched"
+              class="message-block">
+                <span class="mat-error-message mat-error-align"
+                *ngFor="let k of contactInfo?.get('permanentAddress')?.get('city')?.errors | keyvalue"
+                [attr.data-control]="'Error'">
+                  {{ (errorMessages.ERROR)['name'][k.key] }}
+              </span><br>
+              </mat-error>
             </mat-form-field>
           </div>
           <div fxFlex="50%" fxFlex.lt-sm="100%" fxLayout="row" fxLayout.lt-md="column" class="form-field">
             <mat-label fxFlex="40%" fxFlex.lt-md="100%">Country</mat-label>
             <mat-form-field fxFlex.lt-md="100%" class="example-full-width" fxFlex="60%" appearance="outline">
               <mat-select formControlName="country" (selectionChange)="getState($event, 'permanentAddress')">
-                <mat-option *ngFor="let item of Countries" [value]="item">
+                <mat-option *ngFor="let item of Countries" [value]="item?.iso2">
                   {{item?.name}}
                 </mat-option>
               </mat-select>
+              <mat-error *ngIf="contactInfo?.get('permanentAddress')?.get('country')?.errors && contactInfo?.get('permanentAddress')?.get('country')?.touched"
+              class="message-block">
+                <span class="mat-error-message mat-error-align"
+                *ngFor="let k of contactInfo?.get('permanentAddress')?.get('country')?.errors | keyvalue"
+                [attr.data-control]="'Error'">
+                  {{ (errorMessages.ERROR)['fieldRequired'][k.key] }}
+              </span><br>
+              </mat-error>
             </mat-form-field>
           </div>
         </div>
@@ -314,16 +410,32 @@
             <mat-label fxFlex="40%" fxFlex.lt-md="100%">State</mat-label>
             <mat-form-field fxFlex.lt-md="100%" class="example-full-width" fxFlex="60%" appearance="outline">
               <mat-select formControlName="state">
-                <mat-option *ngFor="let item of permanentAddstate" [value]="item">
+                <mat-option *ngFor="let item of permanentAddstate" [value]="item?.name">
                   {{item?.name}}
                 </mat-option>
               </mat-select>
+              <mat-error *ngIf="contactInfo?.get('permanentAddress')?.get('state')?.errors && contactInfo?.get('permanentAddress')?.get('state')?.touched"
+              class="message-block">
+                <span class="mat-error-message mat-error-align"
+                *ngFor="let k of contactInfo?.get('permanentAddress')?.get('state')?.errors | keyvalue"
+                [attr.data-control]="'Error'">
+                  {{ (errorMessages.ERROR)['fieldRequired'][k.key] }}
+              </span><br>
+              </mat-error>
             </mat-form-field>
           </div>
           <div fxFlex="50%" fxFlex.lt-sm="100%" fxLayout="row" fxLayout.lt-md="column" class="form-field">
             <mat-label fxFlex="40%" fxFlex.lt-md="100%">Zip Code</mat-label>
             <mat-form-field fxFlex.lt-md="100%" class="example-full-width" fxFlex="60%" appearance="outline">
               <input formControlName="zipCode" matInput />
+              <mat-error *ngIf="contactInfo?.get('permanentAddress')?.get('zipCode')?.errors && contactInfo?.get('permanentAddress')?.get('zipCode')?.touched"
+              class="message-block">
+                <span class="mat-error-message mat-error-align"
+                *ngFor="let k of contactInfo?.get('permanentAddress')?.get('zipCode')?.errors | keyvalue"
+                [attr.data-control]="'Error'">
+                  {{ (errorMessages.ERROR)['zipCodeValidation'][k.key] }}
+              </span><br>
+              </mat-error>
             </mat-form-field>
           </div>
         </div>
@@ -333,12 +445,28 @@
             <mat-label fxFlex="40%" fxFlex.lt-md="100%">mobile Number</mat-label>
             <mat-form-field fxFlex.lt-md="100%" class="example-full-width" fxFlex="60%" appearance="outline">
               <input formControlName="mobileNumber" matInput />
+              <mat-error *ngIf="contactInfo?.get('permanentAddress')?.get('mobileNumber')?.errors && contactInfo?.get('permanentAddress')?.get('mobileNumber')?.touched"
+              class="message-block">
+                <span class="mat-error-message mat-error-align"
+                *ngFor="let k of contactInfo?.get('permanentAddress')?.get('mobileNumber')?.errors | keyvalue"
+                [attr.data-control]="'Error'">
+                  {{ (errorMessages.ERROR)['phoneNumberError'][k.key] }}
+              </span><br>
+              </mat-error>
             </mat-form-field>
           </div>
           <div fxFlex="50%" fxFlex.lt-sm="100%" fxLayout="row" fxLayout.lt-md="column" class="form-field">
             <mat-label fxFlex="40%" fxFlex.lt-md="100%">Home Phone Number</mat-label>
             <mat-form-field fxFlex.lt-md="100%" class="example-full-width" fxFlex="60%" appearance="outline">
               <input formControlName="homePhoneNumber" matInput />
+              <mat-error *ngIf="contactInfo?.get('permanentAddress')?.get('homePhoneNumber')?.errors && contactInfo?.get('permanentAddress')?.get('homePhoneNumber')?.touched"
+              class="message-block">
+                <span class="mat-error-message mat-error-align"
+                *ngFor="let k of contactInfo?.get('permanentAddress')?.get('homePhoneNumber')?.errors | keyvalue"
+                [attr.data-control]="'Error'">
+                  {{ (errorMessages.ERROR)['phoneNumberError'][k.key] }}
+              </span><br>
+              </mat-error>
             </mat-form-field>
           </div>
         </div>
@@ -348,15 +476,31 @@
     <div formGroupName="emergencyContact" fxLayout="column" style="padding-top:20px">
       <div fxFlex="100%" fxLayout="row" fxLayout.lt-sm="column">
         <div fxFlex="50%" fxFlex.lt-sm="100%" fxLayout="row" fxLayout.lt-md="column" class="form-field">
-          <mat-label fxFlex="40%" fxFlex.lt-md="100%">Contact Nmae</mat-label>
+          <mat-label fxFlex="40%" fxFlex.lt-md="100%">Contact Name</mat-label>
           <mat-form-field fxFlex.lt-md="100%" class="example-full-width" fxFlex="60%" appearance="outline">
             <input formControlName="contactName" matInput />
+            <mat-error *ngIf="contactInfo?.get('emergencyContact')?.get('contactName')?.errors && contactInfo?.get('emergencyContact')?.get('contactName')?.touched"
+            class="message-block">
+              <span class="mat-error-message mat-error-align"
+              *ngFor="let k of contactInfo?.get('emergencyContact')?.get('contactName')?.errors | keyvalue"
+              [attr.data-control]="'Error'">
+                {{ (errorMessages.ERROR)['name'][k.key] }}
+            </span><br>
+            </mat-error>
           </mat-form-field>
         </div>
         <div fxFlex="50%" fxFlex.lt-sm="100%" class="form-field" fxLayout="row" fxLayout.lt-md="column">
           <mat-label fxFlex="40%" fxFlex.lt-md="100%">Relation Ship</mat-label>
           <mat-form-field class="example-full-width" fxFlex="60%" fxFlex.lt-md="100%" appearance="outline">
             <input formControlName="relationship" matInput />
+            <mat-error *ngIf="contactInfo?.get('emergencyContact')?.get('relationship')?.errors && contactInfo?.get('emergencyContact')?.get('relationship')?.touched"
+            class="message-block">
+              <span class="mat-error-message mat-error-align"
+              *ngFor="let k of contactInfo?.get('emergencyContact')?.get('relationship')?.errors | keyvalue"
+              [attr.data-control]="'Error'">
+                {{ (errorMessages.ERROR)['name'][k.key] }}  
+            </span><br>
+            </mat-error>
           </mat-form-field>
         </div>
       </div>
@@ -365,12 +509,28 @@
           <mat-label fxFlex="40%" fxFlex.lt-md="100%">Address Line 1</mat-label>
           <mat-form-field fxFlex.lt-md="100%" class="example-full-width" fxFlex="60%" appearance="outline">
             <input formControlName="addressLine1" matInput />
+            <mat-error *ngIf="contactInfo?.get('emergencyContact')?.get('addressLine1')?.errors && contactInfo?.get('emergencyContact')?.get('addressLine1')?.touched"
+            class="message-block">
+              <span class="mat-error-message mat-error-align"
+              *ngFor="let k of contactInfo?.get('emergencyContact')?.get('addressLine1')?.errors | keyvalue"
+              [attr.data-control]="'Error'">
+                {{ (errorMessages.ERROR)['addressError'][k.key] }}
+            </span><br>
+            </mat-error>
           </mat-form-field>
         </div>
         <div fxFlex="50%" fxFlex.lt-sm="100%" class="form-field" fxLayout="row" fxLayout.lt-md="column">
           <mat-label fxFlex="40%" fxFlex.lt-md="100%">Address Line 2</mat-label>
           <mat-form-field class="example-full-width" fxFlex="60%" fxFlex.lt-md="100%" appearance="outline">
             <input formControlName="addressLine2" matInput />
+            <mat-error *ngIf="contactInfo?.get('emergencyContact')?.get('addressLine2')?.errors && contactInfo?.get('emergencyContact')?.get('addressLine2')?.touched"
+            class="message-block">
+              <span class="mat-error-message mat-error-align"
+              *ngFor="let k of contactInfo?.get('emergencyContact')?.get('addressLine2')?.errors | keyvalue"
+              [attr.data-control]="'Error'">
+                {{ (errorMessages.ERROR)['addressError'][k.key] }}
+            </span><br>
+            </mat-error>
           </mat-form-field>
         </div>
       </div>
@@ -381,16 +541,32 @@
           <mat-label fxFlex="40%" fxFlex.lt-md="100%">City</mat-label>
           <mat-form-field class="example-full-width" fxFlex="60%" fxFlex.lt-md="100%" appearance="outline">
             <input formControlName="city" matInput />
+            <mat-error *ngIf="contactInfo?.get('emergencyContact')?.get('city')?.errors && contactInfo?.get('emergencyContact')?.get('city')?.touched"
+            class="message-block">
+              <span class="mat-error-message mat-error-align"
+              *ngFor="let k of contactInfo?.get('emergencyContact')?.get('city')?.errors | keyvalue"
+              [attr.data-control]="'Error'">
+                {{ (errorMessages.ERROR)['name'][k.key] }}
+            </span><br>
+            </mat-error>
           </mat-form-field>
         </div>
         <div fxFlex="50%" fxFlex.lt-sm="100%" fxLayout="row" fxLayout.lt-md="column" class="form-field">
           <mat-label fxFlex="40%" fxFlex.lt-md="100%">Country</mat-label>
           <mat-form-field fxFlex.lt-md="100%" class="example-full-width" fxFlex="60%" appearance="outline">
             <mat-select formControlName="country" (selectionChange)="getState($event , 'emergencyContact')">
-              <mat-option *ngFor="let item of Countries" [value]="item">
+              <mat-option *ngFor="let item of Countries" [value]="item?.iso2">
                 {{item?.name}}
               </mat-option>
             </mat-select>
+            <mat-error *ngIf="contactInfo?.get('emergencyContact')?.get('country')?.errors && contactInfo?.get('emergencyContact')?.get('country')?.touched"
+            class="message-block">
+              <span class="mat-error-message mat-error-align"
+              *ngFor="let k of contactInfo?.get('emergencyContact')?.get('country')?.errors | keyvalue"
+              [attr.data-control]="'Error'">
+                {{ (errorMessages.ERROR)['fieldRequired'][k.key] }}
+            </span><br>
+            </mat-error>
           </mat-form-field>
         </div>
       </div>
@@ -400,16 +576,32 @@
           <mat-label fxFlex="40%" fxFlex.lt-md="100%">State</mat-label>
           <mat-form-field fxFlex.lt-md="100%" class="example-full-width" fxFlex="60%" appearance="outline">
             <mat-select formControlName="state">
-              <mat-option *ngFor="let item of emergencyContactAddstate" [value]="item">
+              <mat-option *ngFor="let item of emergencyContactAddstate" [value]="item?.name">
                 {{item?.name}}
               </mat-option>
             </mat-select>
+            <mat-error *ngIf="contactInfo?.get('emergencyContact')?.get('state')?.errors && contactInfo?.get('emergencyContact')?.get('state')?.touched"
+            class="message-block">
+              <span class="mat-error-message mat-error-align"
+              *ngFor="let k of contactInfo?.get('emergencyContact')?.get('state')?.errors | keyvalue"
+              [attr.data-control]="'Error'">
+                {{ (errorMessages.ERROR)['fieldRequired'][k.key] }}
+            </span><br>
+            </mat-error>
           </mat-form-field>
         </div>
         <div fxFlex="50%" fxFlex.lt-sm="100%" fxLayout="row" fxLayout.lt-md="column" class="form-field">
           <mat-label fxFlex="40%" fxFlex.lt-md="100%">Zip Code</mat-label>
           <mat-form-field fxFlex.lt-md="100%" class="example-full-width" fxFlex="60%" appearance="outline">
             <input formControlName="zipCode" matInput />
+            <mat-error *ngIf="contactInfo?.get('emergencyContact')?.get('zipCode')?.errors && contactInfo?.get('emergencyContact')?.get('zipCode')?.touched"
+            class="message-block">
+              <span class="mat-error-message mat-error-align"
+              *ngFor="let k of contactInfo?.get('emergencyContact')?.get('zipCode')?.errors | keyvalue"
+              [attr.data-control]="'Error'">
+                {{ (errorMessages.ERROR)['zipCodeValidation'][k.key] }}
+            </span><br>
+            </mat-error>
           </mat-form-field>
         </div>
       </div>
@@ -419,12 +611,28 @@
           <mat-label fxFlex="40%" fxFlex.lt-md="100%">mobile Number</mat-label>
           <mat-form-field fxFlex.lt-md="100%" class="example-full-width" fxFlex="60%" appearance="outline">
             <input formControlName="mobileNumber" matInput />
+            <mat-error *ngIf="contactInfo?.get('emergencyContact')?.get('mobileNumber')?.errors && contactInfo?.get('emergencyContact')?.get('mobileNumber')?.touched"
+            class="message-block">
+              <span class="mat-error-message mat-error-align"
+              *ngFor="let k of contactInfo?.get('emergencyContact')?.get('mobileNumber')?.errors | keyvalue"
+              [attr.data-control]="'Error'">
+                {{ (errorMessages.ERROR)['phoneNumberError'][k.key] }}
+            </span><br>
+            </mat-error>
           </mat-form-field>
         </div>
         <div fxFlex="50%" fxFlex.lt-sm="100%" fxLayout="row" fxLayout.lt-md="column" class="form-field">
           <mat-label fxFlex="40%" fxFlex.lt-md="100%">Home Phone Number</mat-label>
           <mat-form-field fxFlex.lt-md="100%" class="example-full-width" fxFlex="60%" appearance="outline">
             <input formControlName="homePhoneNumber" matInput />
+            <mat-error *ngIf="contactInfo?.get('emergencyContact')?.get('homePhoneNumber')?.errors && contactInfo?.get('emergencyContact')?.get('homePhoneNumber')?.touched"
+            class="message-block">
+              <span class="mat-error-message mat-error-align"
+              *ngFor="let k of contactInfo?.get('emergencyContact')?.get('homePhoneNumber')?.errors | keyvalue"
+              [attr.data-control]="'Error'">
+                {{ (errorMessages.ERROR)['phoneNumberError'][k.key] }}
+            </span><br>
+            </mat-error>
           </mat-form-field>
         </div>
       </div>
@@ -437,19 +645,19 @@
       <div fxFlex="100%" fxFlex.lt-sm="100%" class="form-field" fxLayout="row" fxLayout.lt-md="column">
         <mat-label fxFlex="30%" fxFlex.lt-md="100%">Username : </mat-label>
         <mat-form-field class="example-full-width" fxFlex="70%" fxFlex.lt-md="100%" appearance="outline">
-          <input formControlName="userId" matInput />
+          <input formControlName="email" matInput />
         </mat-form-field>
       </div>
       <div fxFlex="100%" fxFlex.lt-sm="100%" class="form-field" fxLayout="row" fxLayout.lt-md="column">
         <mat-label fxFlex="30%" fxFlex.lt-md="100%">Create Password : </mat-label>
         <mat-form-field class="example-full-width" fxFlex="70%" fxFlex.lt-md="100%" appearance="outline">
-          <input formControlName="password" matInput />
+          <input type="password" formControlName="password" matInput />
         </mat-form-field>
       </div>
       <div fxFlex="100%" fxFlex.lt-sm="100%" class="form-field" fxLayout="row" fxLayout.lt-md="column">
         <mat-label fxFlex="30%" fxFlex.lt-md="100%">Re-enter Password : </mat-label>
         <mat-form-field class="example-full-width" fxFlex="70%" fxFlex.lt-md="100%" appearance="outline">
-          <input formControlName="reenterPassword" matInput />
+          <input type="password" formControlName="reenterPassword" matInput />
         </mat-form-field>
       </div>
     </div>

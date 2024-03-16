@@ -13,7 +13,6 @@ export class HttpServiceService {
     return details;
   }
   get(url: any) {
-    console.log('s2');
     const details = this.http.get('http://localhost:3000/v1/' + url);
     return details;
   }

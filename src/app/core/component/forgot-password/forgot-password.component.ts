@@ -3,6 +3,8 @@ import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms
 import { ActivatedRoute, Router } from '@angular/router';
 import { loginConstant } from '../../constant/loginConstant';
 import { CustomValidatorServiceService } from 'src/app/core/service/custom-validator-service.service';
+import { AsyncvalidatorService } from '../../service/asyncvalidator.service';
+// import { AsyncvalidatorService } from '../../service/asyncvalidator.service';
 
 @Component({
   selector: 'app-forgot-password',
@@ -11,6 +13,8 @@ import { CustomValidatorServiceService } from 'src/app/core/service/custom-valid
 })
 export class ForgotPasswordComponent {
   displayContent: any;
+  errorMessages:any;
+
   signup: boolean = false;
   forgotPassword: boolean = false;
   loginConstant: loginConstant;
@@ -32,15 +36,19 @@ export class ForgotPasswordComponent {
       }
     });
     this.formInitialization();
+    this.errorMessages = this.loginConstant.errorMessage;
   }
 
   formInitialization() {
     this.signUpAndForgotPassword = new UntypedFormGroup({
       email: new UntypedFormControl(null, {
-        validators: [Validators.required, Validators.pattern("[^ @]*@[^ @]*")]
+        validators: [Validators.required,Validators.email],
+        asyncValidators:[this.signup ? AsyncvalidatorService.emailAlreadyExists(this.CustomValidatorService) : AsyncvalidatorService.forgotpasswordEmailCheck(this.CustomValidatorService)]
       })
     })
+    console.log('value :',this.signUpAndForgotPassword);
   }
+
   signInPage() {
     this.router.navigate(['/signin'])
   }

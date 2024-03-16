@@ -2,6 +2,9 @@ import { Component, TemplateRef, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { enduserconstant } from '../../constant/enduserconstant';
 import { CustomValidatorServiceService } from 'src/app/core/service/custom-validator-service.service';
+import { ActivatedRoute } from '@angular/router';
+import { filter, mergeMap, of } from 'rxjs';
+import { AuthServiceService } from 'src/app/core/service/auth-service.service';
 
 @Component({
   selector: 'app-employee-info',
@@ -25,10 +28,29 @@ export class EmployeeInfoComponent {
   @ViewChild('CONTACT', { static: true }) CONTACT !: TemplateRef<any>;
   @ViewChild('INSURANCEINFO', { static: true }) INSURANCEINFO !: TemplateRef<any>;
   @ViewChild('MEDIHISTORY', { static: true }) MEDIHISTORY !: TemplateRef<any>;
-  constructor(private customValidatorService: CustomValidatorServiceService,) {
+  constructor(private customValidatorService: CustomValidatorServiceService, private route: ActivatedRoute,
+    private authService : AuthServiceService) {
     this.enduserconstant = new enduserconstant();
   }
   ngOnInit() {
+this.route.params.pipe(filter((res : any) => {
+  if(res && res.id){
+    return res.id;
+  }
+}),mergeMap((response:any) => {
+  if(response){
+    return this.authService.decrypt(response);
+  }
+  return of(false);
+}),mergeMap((res:any) => {
+  if(res){
+    return this.customValidatorService.getEmployeeInfo({email:res});
+  }
+  return of(false);
+})).subscribe((response:any) => {
+  if(response) this.formInitialization();
+})
+
     this.dashboardCategory = [
       { name: 'General Info', template: this.GENERALINFO },
       { name: 'Contact', template: this.CONTACT },
@@ -72,7 +94,7 @@ export class EmployeeInfoComponent {
         homePhoneNumber: new FormControl(null, Validators.required),
         city: new FormControl(null, Validators.required),
         country: new FormControl(null, Validators.required),
-        state: new FormControl(null, Validators.required),
+        state: new FormControl("null", Validators.required),
         zipCode: new FormControl(null, Validators.required),
       }),
 
@@ -84,7 +106,7 @@ export class EmployeeInfoComponent {
         homePhoneNumber: new FormControl(null, Validators.required),
         city: new FormControl(null, Validators.required),
         country: new FormControl(null, Validators.required),
-        state: new FormControl(null, Validators.required),
+        state: new FormControl("null", Validators.required),
         zipCode: new FormControl(null, Validators.required),
       }),
       emergencyContact: new FormGroup({
@@ -96,7 +118,7 @@ export class EmployeeInfoComponent {
         homePhoneNumber: new FormControl(null, Validators.required),
         city: new FormControl(null, Validators.required),
         country: new FormControl(null, Validators.required),
-        state: new FormControl(null, Validators.required),
+        state: new FormControl("null", Validators.required),
         zipCode: new FormControl(null, Validators.required),
       })
     })
@@ -108,6 +130,7 @@ export class EmployeeInfoComponent {
 
   getState(event: any, address: any) {
     // this.isLoader = true;
+    console.log('event-1 : ',event);
     event = { stateCode: event.value.iso2 };
     console.log('event :', event);
     this.customValidatorService.getState(event).subscribe((res: any) => {
